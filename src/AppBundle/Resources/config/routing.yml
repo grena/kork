@@ -1,0 +1,3 @@
+bagarre:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

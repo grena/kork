@@ -1,0 +1,14 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <p>Salut {{ app.user.username }} - <a href="{{ path('logout') }}"><small>logout</small></a></p>
+            <hr>
+            <ul>
+                <li>Rejoindre une partie via un code : <input type="text"> <input type="submit"></li>
+                <li><a href="#">Créer une nouvelle partie</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

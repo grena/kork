@@ -1,0 +1,35 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    providers:
+        in_memory:
+            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    firewalls:
+        main:
+            pattern: ^/
+            oauth:
+                resource_owners:
+                    github: "/login/check-github"
+                login_path: /login
+                failure_path: /login
+
+                oauth_user_provider:
+                    # This is a custom user provider, created from FOSUBUserProvider - will manage the
+                    # automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: kork.app_bundle.user.user_provider
+            logout: true
+            anonymous: true
+
+    access_control:
+        - { path: ^/(login|connect), roles: IS_AUTHENTICATED_ANONYMOUSLY }

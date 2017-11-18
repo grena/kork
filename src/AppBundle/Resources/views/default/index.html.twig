@@ -1,0 +1,24 @@
+{% extends '@App/base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <h1>Captain Kork</h1>
+            <p><i>“Mais, c'est quoi cette merde ?”</i></p>
+            <p>
+                Alors déjà tu vas bien te calmer. <b>Captain Kork, c'est le nom du capitaine</b> que toi et ton équipage de débiles avez buté. Maintenant, <b>faut fuir le système galactique</b> parce que tout le monde veut vous fumer...
+                <br> En résumé, Captain Kork c'est :
+                <ul>
+                    <li>Un <b>jeu dans le navigateur</b></li>
+                    <li>Tu <b>rejoins tes potes</b> dans une partie</li>
+                    <li>Vous devez <b>fuir le système galactique</b></li>
+                    <li>T'as <b>10 points d'action par jour</b> à dépenser, pas un de plus</li>
+                    <li>Evite de crever <b>comme un con</b></li>
+                </ul>
+            </p>
+            <hr>
+            Ok t'es prêt ? Pour commencer, faut montrer patte blanche : <br><br>
+            <p style="text-align: center;"><a href="{{ path('github_connect') }}">Se connecter avec GitHub</a></p>
+        </div>
+    </div>
+{% endblock %}
