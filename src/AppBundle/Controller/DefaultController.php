@@ -19,8 +19,6 @@ class DefaultController extends Controller
             return $this->render('@App/default/index.html.twig');
         }
 
-        return $this->render('@App/default/lobby.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('@App/default/lobby.html.twig');
     }
 }
