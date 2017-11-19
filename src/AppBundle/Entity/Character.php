@@ -16,6 +16,9 @@ class Character
     /** @var bool */
     private $active;
 
+    /** @var Game */
+    private $game;
+
     /**
      * @return string
      */
@@ -78,5 +81,21 @@ class Character
     public function setActive(bool $active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame(Game $game)
+    {
+        $this->game = $game;
     }
 }

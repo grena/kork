@@ -42,6 +42,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/join-game", name="join_game")
+     */
+    public function joinGameAction(Request $request): Response
+    {
+        $user = $this->getUser();
+
+        if (null === $user->getCurrentCharacter()) {
+            $this->get('kork.app_bundle.game.game_creator')->userJoinsByCode($user, $request->get('code'));
+        }
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
      * @Route("/play", name="play_game")
      */
     public function playGameAction(Request $request): Response

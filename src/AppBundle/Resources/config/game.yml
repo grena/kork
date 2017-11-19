@@ -1,5 +1,6 @@
 parameters:
     kork.app_bundle.game.game_creator.class: AppBundle\Game\GameCreator
+    kork.app_bundle.doctrine.game.repository.class: AppBundle\Doctrine\Repository\GameRepository
 
 services:
     kork.app_bundle.game.game_creator:
@@ -7,3 +8,10 @@ services:
         arguments:
             - '@kork.app_bundle.game.saver'
             - '@kork.app_bundle.character.saver'
+            - '@kork.app_bundle.doctrine.game.repository'
+
+    kork.app_bundle.doctrine.game.repository:
+        class: '%kork.app_bundle.doctrine.game.repository.class%'
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
+        arguments:
+            - AppBundle\Entity\Game

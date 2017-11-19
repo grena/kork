@@ -12,9 +12,6 @@ class Game
     /** @var \DateTime */
     private $date_creation;
 
-    /** @var ArrayCollection */
-    private $characters;
-
     /**
      * @return string
      */
@@ -45,30 +42,5 @@ class Game
     public function setDateCreation($date_creation)
     {
         $this->date_creation = $date_creation;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getCharacters()
-    {
-        return $this->characters;
-    }
-
-    /**
-     * @param ArrayCollection $characters
-     */
-    public function setCharacters($characters)
-    {
-        $this->characters = $characters;
-    }
-
-    public function addCharacter(Character $character)
-    {
-        if (null === $this->characters) {
-            $this->characters = new ArrayCollection();
-        }
-
-        $this->characters->add($character);
     }
 }

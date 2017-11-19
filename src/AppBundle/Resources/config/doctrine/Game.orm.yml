@@ -1,6 +1,7 @@
 AppBundle\Entity\Game:
     type:  entity
     table: kork_game
+    repositoryClass: AppBundle\Doctrine\Repository\GameRepository
     fields:
         id:
             id: true
@@ -10,12 +11,3 @@ AppBundle\Entity\Game:
         date_creation:
             type: date
             nullable: true
-    oneToMany:
-        characters:
-            targetEntity: AppBundle\Entity\Character
-            mappedBy: game
-            cascade:
-                - persist
-                - detach
-                - remove
-            orphanRemoval: true

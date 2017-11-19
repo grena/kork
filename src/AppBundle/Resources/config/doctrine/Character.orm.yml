@@ -21,3 +21,8 @@ AppBundle\Entity\Character:
                 name: user_id
                 referencedColumnName: id
             inversedBy: characters
+        game:
+            targetEntity: AppBundle\Entity\Game
+            joinColumn:
+                name: game_id
+                referencedColumnName: id

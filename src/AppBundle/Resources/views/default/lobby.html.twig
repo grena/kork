@@ -6,7 +6,11 @@
             <p>Salut {{ app.user.username }} - <a href="{{ path('logout') }}"><small>logout</small></a></p>
             <hr>
             <ul>
-                <li>Rejoindre une partie via un code : <input type="text"> <input type="submit"></li>
+                <li>Rejoindre une partie via un code :
+                    <form style="display: inline-block" action="{{ path('join_game') }}" method="get">
+                        <input name="code" type="text"> <input type="submit">
+                    </form>
+                </li>
                 <li><a href="{{ path('create_game') }}">Créer une nouvelle partie</a></li>
             </ul>
         </div>
