@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 
 class User extends BaseUser
@@ -10,13 +11,16 @@ class User extends BaseUser
     protected $id;
 
     /** @var string */
-    protected $github_id;
+    private $github_id;
 
     /** @var string */
-    protected $github_access_token;
+    private $github_access_token;
 
     /** @var \DateTime */
-    protected $date_registered;
+    private $date_registered;
+
+    /** @var ArrayCollection */
+    private $characters;
 
     public function getGithubId()
     {
@@ -46,5 +50,33 @@ class User extends BaseUser
     public function setDateRegistered($registeredDate)
     {
         $this->date_registered = $registeredDate;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCharacters(): ArrayCollection
+    {
+        return $this->characters;
+    }
+
+    /**
+     * @param ArrayCollection $characters
+     */
+    public function setCharacters(ArrayCollection $characters)
+    {
+        $this->characters = $characters;
+    }
+
+    /**
+     * @return Character|null
+     */
+    public function getCurrentCharacter(): ?Character
+    {
+        $activeCharacter = $this->characters->filter(function (Character $character) {
+            return $character->isActive();
+        })->first();
+
+        return (false === $activeCharacter) ? null : $activeCharacter;
     }
 }

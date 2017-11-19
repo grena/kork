@@ -1,0 +1,9 @@
+parameters:
+    kork.app_bundle.game.game_creator.class: AppBundle\Game\GameCreator
+
+services:
+    kork.app_bundle.game.game_creator:
+        class: '%kork.app_bundle.game.game_creator.class%'
+        arguments:
+            - '@kork.app_bundle.game.saver'
+            - '@kork.app_bundle.character.saver'

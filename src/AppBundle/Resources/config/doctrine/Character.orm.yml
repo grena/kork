@@ -1,0 +1,23 @@
+AppBundle\Entity\Character:
+    type:  entity
+    table: kork_character
+    fields:
+        id:
+            id: true
+            type: guid
+            generator:
+                strategy: UUID
+        name:
+            type: string
+            length: 255
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: AppBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            inversedBy: characters
