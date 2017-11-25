@@ -1,10 +1,10 @@
 {
-    "name": "grena/captain-kork",
+    "name": "grena/kork",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "": "src/"
         },
         "classmap": [
             "app/AppKernel.php",

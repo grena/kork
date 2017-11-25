@@ -1,0 +1,41 @@
+Kork\Bundle\AppBundle\Entity\Character:
+    type:  entity
+    table: kork_character
+    fields:
+        id:
+            id: true
+            type: guid
+            generator:
+                strategy: UUID
+        name:
+            type: string
+            length: 255
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+        water:
+            type: string
+            length: 255
+            nullable: false
+        food:
+            type: string
+            length: 255
+            nullable: false
+        health:
+            type: string
+            length: 255
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: Kork\Bundle\AppBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            inversedBy: characters
+        game:
+            targetEntity: Kork\Bundle\AppBundle\Entity\Game
+            joinColumn:
+                name: game_id
+                referencedColumnName: id
+            inversedBy: characters

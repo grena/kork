@@ -1,0 +1,21 @@
+parameters:
+    kork.bundle.app_bundle.doctrine.vegetal_reference.repository.class: Kork\Bundle\AppBundle\Doctrine\Repository\VegetalReferenceRepository
+    kork.component.vegetal.vegetal_reference_generator.class: Kork\Component\Vegetal\VegetalReferenceGenerator
+    kork.component.vegetal.vegetal_generator.class: Kork\Component\Vegetal\VegetalGenerator
+
+services:
+    kork.bundle.app_bundle.doctrine.vegetal_reference.repository:
+        class: '%kork.bundle.app_bundle.doctrine.vegetal_reference.repository.class%'
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
+        arguments:
+            - Kork\Bundle\AppBundle\Entity\VegetalReference
+
+    kork.component.vegetal.vegetal_reference_generator:
+        class: '%kork.component.vegetal.vegetal_reference_generator.class%'
+        arguments:
+            - '@kork.bundle.app_bundle.doctrine.vegetal_reference.repository'
+            - '%kernel.root_dir%'
+
+    kork.component.vegetal.vegetal_generator:
+        class: '%kork.component.vegetal.vegetal_generator.class%'
+        arguments:

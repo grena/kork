@@ -1,2 +1,0 @@
-parameters:
-    kork.app_bundle.doctrine.remover.base.class: AppBundle\Doctrine\Remover\BaseRemover

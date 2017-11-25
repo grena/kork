@@ -1,0 +1,8 @@
+parameters:
+    kork.component.character.character_generator.class: Kork\Component\Character\CharacterGenerator
+
+services:
+    kork.component.character.character_generator:
+        class: '%kork.component.character.character_generator.class%'
+        arguments:
+            - '%kernel.root_dir%'

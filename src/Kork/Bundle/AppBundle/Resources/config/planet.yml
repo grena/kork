@@ -1,0 +1,8 @@
+parameters:
+    kork.component.planet.planet_generator.class: Kork\Component\Planet\PlanetGenerator
+
+services:
+    kork.component.planet.planet_generator:
+        class: '%kork.component.planet.planet_generator.class%'
+        arguments:
+            - '@kork.component.vegetal.vegetal_generator'

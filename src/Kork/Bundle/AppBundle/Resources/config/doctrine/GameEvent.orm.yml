@@ -1,0 +1,47 @@
+Kork\Bundle\AppBundle\Entity\GameEvent:
+    type:  entity
+    table: kork_game_event
+    repositoryClass: Kork\Bundle\AppBundle\Doctrine\Repository\GameEventRepository
+    fields:
+        id:
+            id: true
+            type: guid
+            generator:
+                strategy: UUID
+        initiator:
+            type: string
+            length: 255
+            nullable: false
+        initiatorType:
+            type: string
+            length: 255
+            nullable: false
+        action:
+            type: string
+            length: 255
+            nullable: false
+        target:
+            type: string
+            length: 255
+            nullable: true
+        targetType:
+            type: string
+            length: 255
+            nullable: true
+        dayNum:
+            type: smallint
+            nullable: false
+        time:
+            type: string
+            length: 255
+            nullable: false
+        datetime:
+            type: datetime
+            nullable: false
+    manyToOne:
+        game:
+            targetEntity: Kork\Bundle\AppBundle\Entity\Game
+            joinColumn:
+                name: game_id
+                referencedColumnName: id
+            inversedBy: events

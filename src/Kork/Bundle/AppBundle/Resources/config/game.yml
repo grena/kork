@@ -1,0 +1,25 @@
+parameters:
+    kork.component.game.game_creator.class: Kork\Component\Game\GameCreator
+    kork.component.game.game_generator.class: Kork\Component\Game\GameGenerator
+    kork.bundle.app_bundle.doctrine.game.repository.class: Kork\Bundle\AppBundle\Doctrine\Repository\GameRepository
+
+services:
+    kork.component.game.game_creator:
+        class: '%kork.component.game.game_creator.class%'
+        arguments:
+            - '@kork.bundle.app_bundle.game.saver'
+            - '@kork.bundle.app_bundle.character.saver'
+            - '@kork.bundle.app_bundle.doctrine.game.repository'
+            - '@kork.component.character.character_generator'
+
+    kork.component.game.game_generator:
+        class: '%kork.component.game.game_generator.class%'
+        arguments:
+            - '@kork.component.vegetal.vegetal_reference_generator'
+            - '@kork.component.planet.planet_generator'
+
+    kork.bundle.app_bundle.doctrine.game.repository:
+        class: '%kork.bundle.app_bundle.doctrine.game.repository.class%'
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
+        arguments:
+            - Kork\Bundle\AppBundle\Entity\Game

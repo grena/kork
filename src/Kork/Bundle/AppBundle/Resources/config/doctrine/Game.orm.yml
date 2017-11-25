@@ -1,0 +1,39 @@
+Kork\Bundle\AppBundle\Entity\Game:
+    type:  entity
+    table: kork_game
+    repositoryClass: Kork\Bundle\AppBundle\Doctrine\Repository\GameRepository
+    fields:
+        id:
+            id: true
+            type: guid
+            generator:
+                strategy: UUID
+        date_creation:
+            type: date
+            nullable: true
+        currentDay:
+            type: smallint
+            nullable: false
+        gameSeed:
+            type: string
+            length: 255
+            nullable: false
+    oneToMany:
+        events:
+            targetEntity: Kork\Bundle\AppBundle\Entity\GameEvent
+            mappedBy: game
+            cascade:
+                - persist
+                - detach
+                - remove
+            orphanRemoval: true
+            fetch: EAGER
+        characters:
+            targetEntity: Kork\Bundle\AppBundle\Entity\Character
+            mappedBy: game
+            cascade:
+                - persist
+                - detach
+                - remove
+            orphanRemoval: true
+            fetch: EAGER

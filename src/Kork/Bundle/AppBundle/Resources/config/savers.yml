@@ -1,0 +1,15 @@
+parameters:
+    kork.bundle.app_bundle.doctrine.saver.base.class: Kork\Bundle\AppBundle\Doctrine\Saver\BaseSaver
+
+services:
+    kork.bundle.app_bundle.game.saver:
+        class: '%kork.bundle.app_bundle.doctrine.saver.base.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'Kork\Bundle\AppBundle\Entity\Game'
+
+    kork.bundle.app_bundle.character.saver:
+        class: '%kork.bundle.app_bundle.doctrine.saver.base.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'Kork\Bundle\AppBundle\Entity\Character'

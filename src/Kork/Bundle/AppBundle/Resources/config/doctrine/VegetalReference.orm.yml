@@ -1,0 +1,42 @@
+Kork\Bundle\AppBundle\Entity\VegetalReference:
+    type:  entity
+    table: kork_vegetal_reference
+    repositoryClass: Kork\Bundle\AppBundle\Doctrine\Repository\VegetalReferenceRepository
+    fields:
+        id:
+            id: true
+            type: guid
+            generator:
+                strategy: UUID
+        description:
+            type: string
+            length: 1024
+            nullable: false
+        picture:
+            type: string
+            length: 255
+            nullable: true
+        foodMinModificator:
+            type: smallint
+            nullable: false
+        foodMaxModificator:
+            type: smallint
+            nullable: false
+        waterMinModificator:
+            type: smallint
+            nullable: false
+        waterMaxModificator:
+            type: smallint
+            nullable: false
+        energyMinModificator:
+            type: smallint
+            nullable: false
+        energyMaxModificator:
+            type: smallint
+            nullable: false
+        healthMinModificator:
+            type: smallint
+            nullable: false
+        healthMaxModificator:
+            type: smallint
+            nullable: false

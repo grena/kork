@@ -27,7 +27,7 @@ security:
                 oauth_user_provider:
                     # This is a custom user provider, created from FOSUBUserProvider - will manage the
                     # automatic user registration on your site, with data from the provider (facebook. google, etc.)
-                    service: kork.app_bundle.user.user_provider
+                    service: kork.bundle.app_bundle.user.user_provider
             logout: true
             anonymous: true
 
