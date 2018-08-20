@@ -27,7 +27,8 @@ security:
                 failure_path:      /login
 
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider.fosub_bridge
+                    service: hwi_oauth.user.provider
+#                    service: hwi_oauth.user.provider.fosub_bridge
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
