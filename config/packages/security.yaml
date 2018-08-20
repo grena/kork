@@ -27,6 +27,7 @@ security:
                 failure_path:      /login
 
                 oauth_user_provider:
+#                    service: 'App\Provider\UserProvider'
                     service: hwi_oauth.user.provider
 #                    service: hwi_oauth.user.provider.fosub_bridge
 
