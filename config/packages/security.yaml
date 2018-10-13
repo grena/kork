@@ -1,38 +1,33 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+#        in_memory: { memory: ~ }
+#        hwi:
+#            id: hwi_oauth.user.provider
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-#        main:
-#            anonymous: true
-
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
 
         secured_area:
             anonymous: ~
             oauth:
                 resource_owners:
-                    google:             "/login/check-google"
-                login_path:        /login
-                use_forward:       false
-                failure_path:      /login
+                    google: "/login/check-google"
+                    github: "/login/check-github"
+                login_path: /login
+                use_forward: false
+                failure_path: /login
 
                 oauth_user_provider:
+                    service: 'App\Provider\FOSUBUserProvider'
 #                    service: 'App\Provider\UserProvider'
-                    service: hwi_oauth.user.provider
+#                    service: hwi_oauth.user.provider
 #                    service: hwi_oauth.user.provider.fosub_bridge
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/(login|connect), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
