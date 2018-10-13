@@ -15,9 +15,6 @@ class Game
     /** @var int */
     private $currentDay;
 
-    /** @var string */
-    private $gameSeed;
-
     /** @var Collection */
     private $characters;
 
@@ -29,6 +26,9 @@ class Game
 
     /** @var Collection */
     private $events;
+
+    /** @var boolean */
+    private $started;
 
     /**
      * @return string
@@ -111,22 +111,6 @@ class Game
     }
 
     /**
-     * @return string
-     */
-    public function getGameSeed(): string
-    {
-        return $this->gameSeed;
-    }
-
-    /**
-     * @param string $gameSeed
-     */
-    public function setGameSeed(string $gameSeed)
-    {
-        $this->gameSeed = $gameSeed;
-    }
-
-    /**
      * @return Collection
      */
     public function getVegetalReferences(): Collection
@@ -156,5 +140,15 @@ class Game
     public function setPlanets(Collection $planets)
     {
         $this->planets = $planets;
+    }
+
+    public function getCurrentPlanet(): Planet
+    {
+        return $this->getPlanets()->offsetGet($this->getCurrentDay() - 1);
+    }
+
+    public function isStarted(): bool
+    {
+        return $this->started;
     }
 }

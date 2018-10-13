@@ -3,7 +3,6 @@
 namespace Kork\Component\Planet;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kork\Bundle\AppBundle\Entity\Game;
 use Kork\Bundle\AppBundle\Entity\Planet;
 use Kork\Component\Vegetal\VegetalGenerator;
 
@@ -20,7 +19,7 @@ class PlanetGenerator
         $this->vegetalGenerator = $vegetalGenerator;
     }
 
-    public function generate(Game $game, int $dayNumber)
+    public function generate(): Planet
     {
         $planet = new Planet();
 
@@ -32,6 +31,6 @@ class PlanetGenerator
 
         $planet->setVegetals($vegetals);
 
-        $game->getPlanets()->add($planet);
+        return $planet;
     }
 }

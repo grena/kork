@@ -45,7 +45,6 @@ class GameCreator
         $game = new Game();
         $game->setDateCreation(new \DateTime('now'));
         $game->setCurrentDay(1);
-        $game->setGameSeed(rand());
         $this->gameSaver->save($game);
 
         // Create character

@@ -4,22 +4,22 @@ namespace Kork\Component\Vegetal;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kork\Bundle\AppBundle\Doctrine\Repository\VegetalReferenceRepository;
+use Kork\Bundle\AppBundle\Doctrine\Repository\PlantSpecieRepository;
 use Kork\Bundle\AppBundle\Entity\Game;
 
 class VegetalReferenceGenerator
 {
-    /** @var VegetalReferenceRepository */
+    /** @var PlantSpecieRepository */
     private $vegetalReferenceRepository;
 
     /** @var string */
     private $rootDir;
 
     /**
-     * @param VegetalReferenceRepository $vegetalReferenceRepository
+     * @param PlantSpecieRepository $vegetalReferenceRepository
      */
     public function __construct(
-        VegetalReferenceRepository $vegetalReferenceRepository,
+        PlantSpecieRepository $vegetalReferenceRepository,
         string $rootDir
     ) {
         $this->vegetalReferenceRepository = $vegetalReferenceRepository;

@@ -2,7 +2,7 @@
 
 namespace Kork\Bundle\AppBundle\Entity;
 
-class VegetalReference
+class PlantSpecie
 {
     /** @var string */
     private $id;

@@ -2,8 +2,8 @@
 
 namespace Kork\Bundle\AppBundle\Controller;
 
-use Kork\Bundle\AppBundle\Entity\Character;
 use Kork\Bundle\AppBundle\Entity\Game;
+use Kork\Bundle\AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,11 +26,28 @@ class DefaultController extends Controller
             return $this->render('@App/default/index.html.twig');
         }
 
-        if (null === $user->getCurrentCharacter()) {
-            return $this->render('@App/default/lobby.html.twig');
+        return $this->redirectToRoute('lobby');
+    }
+
+    /**
+     * @Route("/lobby", name="lobby")
+     */
+    public function lobbyAction(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $character = $user->getCurrentCharacter();
+        if (null === $character) {
+            return $this->render('@App/default/lobby.html.twig', ['game' => null]);
         }
 
-        return $this->redirectToRoute('play_game');
+        $game = $character->getGame();
+        if ($game->isStarted()) {
+            return $this->redirectToRoute('play_game');
+        }
+
+        return $this->render('@App/default/lobby.html.twig', ['game' => $game]);
     }
 
     /**
@@ -66,6 +83,7 @@ class DefaultController extends Controller
      */
     public function playGameAction(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         if (null === $user->getCurrentCharacter()) {

@@ -2,19 +2,10 @@
 
 namespace Kork\Bundle\AppBundle\Entity;
 
-class Vegetal
+class Plant
 {
     /** @var string */
     private $id;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $description;
-
-    /** @var string */
-    private $picture;
 
     /** @var int */
     private $foodModificator;
@@ -27,6 +18,9 @@ class Vegetal
 
     /** @var int */
     private $healthModificator;
+
+    /** @var PlantSpecie */
+    private $plantSpecie;
 
     /**
      * @return string
@@ -42,54 +36,6 @@ class Vegetal
     public function setId(string $id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param string|null $picture
-     */
-    public function setPicture(?string $picture)
-    {
-        $this->picture = $picture;
     }
 
     /**
@@ -154,5 +100,21 @@ class Vegetal
     public function setHealthModificator(int $healthModificator)
     {
         $this->healthModificator = $healthModificator;
+    }
+
+    /**
+     * @return PlantSpecie
+     */
+    public function getPlantSpecie(): PlantSpecie
+    {
+        return $this->plantSpecie;
+    }
+
+    /**
+     * @param PlantSpecie $plantSpecie
+     */
+    public function setPlantSpecie(PlantSpecie $plantSpecie): void
+    {
+        $this->plantSpecie = $plantSpecie;
     }
 }

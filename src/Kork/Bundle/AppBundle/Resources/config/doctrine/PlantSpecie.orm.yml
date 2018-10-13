@@ -1,7 +1,7 @@
-Kork\Bundle\AppBundle\Entity\VegetalReference:
+Kork\Bundle\AppBundle\Entity\PlantSpecie:
     type:  entity
-    table: kork_vegetal_reference
-    repositoryClass: Kork\Bundle\AppBundle\Doctrine\Repository\VegetalReferenceRepository
+    table: kork_plant_specie
+    repositoryClass: Kork\Bundle\AppBundle\Doctrine\Repository\PlantSpecieRepository
     fields:
         id:
             id: true

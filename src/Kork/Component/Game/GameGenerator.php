@@ -26,8 +26,6 @@ class GameGenerator
 
     public function generate(Game $game)
     {
-        srand($game->getGameSeed());
-
         $this->vegetalReferenceGenerator->generate($game);
 
         $game->setPlanets(new ArrayCollection());

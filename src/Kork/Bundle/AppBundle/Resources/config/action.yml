@@ -1,0 +1,6 @@
+parameters:
+    kork.component.action.available_action_generator.class: Kork\Component\Action\AvailableActionGenerator
+
+services:
+    kork.component.action.available_action_generator:
+        class: '%kork.component.action.available_action_generator.class%'

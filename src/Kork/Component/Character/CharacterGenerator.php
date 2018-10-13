@@ -35,9 +35,9 @@ class CharacterGenerator
         $character->setActive(true);
         $character->setName(current($availableNames));
         $character->setGame($game);
-        $character->setWater(50);
-        $character->setFood(30);
-        $character->setHealth(30);
+        $character->setWater(100);
+        $character->setFood(100);
+        $character->setHealth(100);
 
         return $character;
     }

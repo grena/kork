@@ -4,18 +4,18 @@ namespace Kork\Component\Vegetal;
 
 
 use Kork\Bundle\AppBundle\Entity\Game;
-use Kork\Bundle\AppBundle\Entity\Vegetal;
-use Kork\Bundle\AppBundle\Entity\VegetalReference;
+use Kork\Bundle\AppBundle\Entity\Plant;
+use Kork\Bundle\AppBundle\Entity\PlantSpecie;
 
 class VegetalGenerator
 {
-    public function generate(Game $game): Vegetal
+    public function generate(Game $game): Plant
     {
         $randomIndex = rand(1, $game->getVegetalReferences()->count()) - 1;
-        /** @var VegetalReference $vegetalReference */
+        /** @var PlantSpecie $vegetalReference */
         $vegetalReference = $game->getVegetalReferences()->offsetGet($randomIndex);
 
-        $vegetal = new Vegetal();
+        $vegetal = new Plant();
         $vegetal->setId(md5(rand()));
         $vegetal->setName($vegetalReference->getName());
         $vegetal->setDescription($vegetalReference->getDescription());

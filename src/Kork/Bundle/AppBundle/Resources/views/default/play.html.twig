@@ -6,9 +6,9 @@
             <p>Salut {{ app.user.username }} - <a href="{{ path('logout') }}"><small>logout</small></a></p>
             <p>Code invitation : <code>{{ app.user.getCurrentCharacter.game.id }}</code></p>
             <hr>
-            <h2><strong>{{ character.name }}</strong> | JOUR {{ game.currentDay }}</h2>
+            <h2>JOUR {{ game.currentDay }}</h2>
             <hr>
-            <p>Eau : {{ character.water }} | Nourriture : {{ character.food }} | Santé : {{ character.health }} </p>
+            <p><strong>{{ character.name }}</strong> | Eau : {{ character.water }} | Nourriture : {{ character.food }} | Santé : {{ character.health }} </p>
             <hr>
             {{ dump(game) }}
         </div>

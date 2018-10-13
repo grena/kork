@@ -14,10 +14,6 @@ Kork\Bundle\AppBundle\Entity\Game:
         currentDay:
             type: smallint
             nullable: false
-        gameSeed:
-            type: string
-            length: 255
-            nullable: false
     oneToMany:
         events:
             targetEntity: Kork\Bundle\AppBundle\Entity\GameEvent
