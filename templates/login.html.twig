@@ -1,14 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Login</h2>
+    <div class="block login">
+        <h1 class="text-center">★ Captain Kork ★</h1>
+        <p><i>“Captain quoi ?”</i></p>
+        <p>Alors déjà tu vas bien te calmer. Captain Kork, c'est le nom du capitaine que toi et ton équipe de débiles avez buté. Maintenant, faut fuir le système galactique parce que tout le monde veut vous buter...</p>
+        <p>
+            En résumé :
+            <ul>
+                <li>Un jeu dans le <span class="info">navigateur</span></li>
+                <li>Tu rejoins tes potes dans une partie</li>
+                <li>T'as <span class="info">10 points d'action par jour</span> à dépenser, pas un de plus</li>
+                <li><span class="info">A minuit</span>, le vaisseau se barre sur une autre planète</li>
+                <li>Essaie de <span class="info">survivre</span> le plus longtemps possible...</li>
+                <li>... et évite de crever comme <span class="info">un con</span></li>
+            </ul>
+        </p>
 
-    {% if error is defined and error %}
-        <span>{{ error }}</span>
-    {% endif %}
+        <p>Ok t'es prêt ? Pour commencer, faut montrer patte blanche : <br></p>
 
-    {% for owner in hwi_oauth_resource_owners() %}
-        <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />
-    {% endfor %}
+        {% if error is defined and error %}
+            <span>{{ error }}</span>
+        {% endif %}
 
+        <a class="btn" href="{{ hwi_oauth_login_url('github') }}">
+            <span>Se connecter avec GitHub</span>
+        </a>
+    </div>
 {% endblock body %}

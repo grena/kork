@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Hello {{ user.username }}
+    <div class="block">
+        <p class="small">Salut {{ app.user.username }} - <a href="{{ path('logout') }}">logout</a></p>
+    </div>
 {% endblock body %}

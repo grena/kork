@@ -1,4 +1,86 @@
+html {
+  font-family: 'Electrolize', sans-serif;
+  background: url('img/pyramid.gif');
+  color: #287093;
+}
+
+.info {
+  color: #a2770f;
+}
+
+.small {
+  color: rgb(44, 121, 159);
+  font-size: 12px;
+  line-height: 16.8px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn {
+  background-color: rgba(49, 55, 63, 0.3);
+  border: 1px solid rgb(34, 63, 81);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: block;
+  font-family: Tahoma, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 0px;
+  margin-left: 3px;
+  margin-right: 3px;
+  padding: 0 10px;
+  text-align: center;
+  text-decoration: none;
+  text-decoration-color: rgb(255, 255, 255);
+  text-decoration-style: solid;
+  transition-duration: 0.2s;
+  transition-property: color;
+  margin-top: 5px;
+
+  &:hover {
+    border: 1px solid rgb(34, 94, 112);
+  }
+}
+
 body {
   width: 900px;
   margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  color: #00e7ff;
+  font-weight: normal;
+  text-transform: uppercase;
+  height: 56px;
+  line-height: 60px;
+  border-top: 1px solid #00e7ff;
+  border-bottom: 1px solid #1681a5;
+  position: relative;
+  text-shadow: 0 0 20px #09F;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+a {
+  color: rgb(0, 174, 255);
+}
+
+.block {
+  background: rgba(0, 0, 0, 0.3);
+  margin: 15px auto;
+  padding: 25px;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  &.login {
+    width: 500px;
+  }
 }
