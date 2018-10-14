@@ -11,10 +11,6 @@ class LobbyController extends Controller
 {
     public function index()
     {
-        if (null === $this->getUser()) {
-            return $this->redirectToRoute('loggy');
-        }
-
         return $this->redirectToRoute('lobby');
     }
 
