@@ -16,7 +16,7 @@ class LobbyController extends Controller
 
     public function lobby()
     {
-        return $this->render('lobby.html.twig', ['user' => $this->getUser()]);
+        return $this->render('lobby.html.twig');
     }
 
     public function login()
