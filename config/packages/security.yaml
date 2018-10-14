@@ -13,6 +13,7 @@ security:
             security: false
 
         secured_area:
+            logout: ~
             anonymous: ~
             oauth:
                 resource_owners:

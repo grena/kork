@@ -1,9 +1,24 @@
-index:
-    path: /
-    controller: App\Controller\LobbyController::index
+login:
+    path: /login
+    controller: App\Controller\LobbyController::login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
 
 google_login:
     path: /login/check-google
 
 github_login:
     path: /login/check-github
+
+logout:
+    path: /logout
+
+lobby:
+    path: /lobby
+    controller: App\Controller\LobbyController::lobby
+
+index:
+    path: /
+    controller: App\Controller\LobbyController::index
