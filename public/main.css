@@ -28,12 +28,10 @@ html {
   margin-bottom: 0px;
   margin-left: 3px;
   margin-right: 3px;
-  margin-top: 0px;
   padding: 0 10px;
   text-align: center;
   text-decoration: none;
   text-decoration-color: #ffffff;
-  text-decoration-line: none;
   text-decoration-style: solid;
   transition-duration: 0.2s;
   transition-property: color;
@@ -71,7 +69,7 @@ a {
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid #223f51;
 }
 .block.login {
   width: 500px;
