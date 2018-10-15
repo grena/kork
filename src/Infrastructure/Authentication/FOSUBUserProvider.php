@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Provider;
+namespace App\Infrastructure\Authentication;
 
 use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
@@ -12,8 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User provider to handle oAuth responses.
  *
- * @author  Adrien Pétremann <hello@grena.fr>
- * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+ * @author Adrien Pétremann <hello@grena.fr>
  *
  * Credits: https://gist.github.com/danvbe/4476697
  */
