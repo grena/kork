@@ -1,24 +1,18 @@
 login:
     path: /login
-    controller: App\Controller\LobbyController::login
-
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
-
-google_login:
-    path: /login/check-google
-
-github_login:
-    path: /login/check-github
+    controller: App\Infrastructure\Controller\Lobby\LogginAction::handle
 
 logout:
     path: /logout
 
 lobby:
     path: /lobby
-    controller: App\Controller\LobbyController::lobby
+    controller: App\Infrastructure\Controller\Lobby\LobbyAction::handle
 
 index:
     path: /
-    controller: App\Controller\LobbyController::index
+    controller: App\Infrastructure\Controller\Lobby\IndexAction::handle
+
+create_game:
+    path: /create-game
+    controller: App\Infrastructure\Controller\Lobby\CreateGameAction::handle
