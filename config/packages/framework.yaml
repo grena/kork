@@ -32,3 +32,9 @@ framework:
     templating:
         engines:
             - twig
+
+    validation:
+        enabled: true
+        mapping:
+            paths:
+                - '%kernel.project_dir%/src/Infrastructure/Symfony/Resources/config'

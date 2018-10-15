@@ -3,5 +3,7 @@
 {% block body %}
     <div class="block">
         <p class="small">Salut {{ app.user.username }} - <a href="{{ path('logout') }}">logout</a></p>
+
+        <a href="{{ url('create_game') }}" class="btn btn-inline">Créer une partie</a>
     </div>
 {% endblock body %}

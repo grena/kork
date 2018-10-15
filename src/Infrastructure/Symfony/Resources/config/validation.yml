@@ -1,0 +1,3 @@
+App\Application\Game\CreateGameCommand:
+    constraints:
+        - App\Infrastructure\Validation\Game\PlayerShouldNotHaveCharacterInGame: ~
