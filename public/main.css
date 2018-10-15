@@ -1,6 +1,6 @@
 html {
   font-family: 'Electrolize', sans-serif;
-  background: url('img/pyramid.gif');
+  background: url('img/dotted.png');
   color: #287093;
 }
 .info {
@@ -20,9 +20,7 @@ html {
   color: #ffffff;
   cursor: pointer;
   display: block;
-  font-family: Tahoma, Arial, Helvetica, sans-serif;
   font-size: 14px;
-  font-weight: 700;
   height: 30px;
   line-height: 30px;
   margin-bottom: 0px;
@@ -36,9 +34,12 @@ html {
   transition-duration: 0.2s;
   transition-property: color;
   margin-top: 5px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #353446, #2d3c41);
 }
 .btn:hover {
   border: 1px solid #225e70;
+  text-shadow: 0 0 4px #09F;
 }
 body {
   width: 900px;
