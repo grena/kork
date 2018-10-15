@@ -37,6 +37,9 @@ html {
   text-transform: uppercase;
   background: linear-gradient(45deg, #353446, #2d3c41);
 }
+.btn.btn-inline {
+  display: inline-block;
+}
 .btn:hover {
   border: 1px solid #225e70;
   text-shadow: 0 0 4px #09F;
