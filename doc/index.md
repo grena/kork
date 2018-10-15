@@ -50,3 +50,4 @@ Les actions et autres évènements sont ainsi en temps réel.
 * **Prendre [OBJET DANS VAISSEAU]**
 	* L’objet va dans l’inventaire du personnage
 * **Déposer [OBJET DANS INVENTAIRE] dans le vaisseau**
+	* L'objet va dans l'inventaire du vaisseau
