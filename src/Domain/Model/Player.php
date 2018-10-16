@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User;
 
 /**
- * @ORM\Table(name="user")
+ * @ORM\Table(name="player")
  * @ORM\Entity
  * @ORM\AttributeOverrides({
  *      @ORM\AttributeOverride(name="email", column=@ORM\Column(type="string", name="email", length=255, unique=false, nullable=true)),
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\AttributeOverride(name="password", column=@ORM\Column(type="string", name="password", length=255, nullable=true))
  * })
  */
-class User extends BaseUser
+class Player extends User
 {
     /**
      * @ORM\Id
@@ -34,6 +34,17 @@ class User extends BaseUser
      * @ORM\Column(type="string")
      */
     protected $github_access_token;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
 
     public function setGithubId($github_id): void
     {
