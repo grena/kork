@@ -9,16 +9,12 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class PlayerShouldNotHaveCharacterInGame extends Constraint
+class PlayerShouldNotHaveActiveCharacter extends Constraint
 {
+    public const ERROR_MESSAGE = 'Player already has an active character in game';
+
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
-
-    // TODO: Maybe not needed anymore with SF4
-//    public function validatedBy()
-//    {
-//        return 'validator.service';
-//    }
 }
