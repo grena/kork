@@ -17,7 +17,7 @@ class CreateGameAction extends Controller
     public function handle(): Response
     {
         $command = new CreateGameCommand();
-        $command->player = $this->getUser();
+        $command->playerId = $this->getUser()->getId();
 
         $violations = $this->get('validator')->validate($command);
 
