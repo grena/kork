@@ -22,7 +22,7 @@ class Game
     /**
      * @ORM\Column(type="smallint", nullable=false, options={"default" : 1})
      */
-    private $day;
+//    private $day;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -32,12 +32,12 @@ class Game
     /**
      * @ORM\Column(type="datetime")
      */
-    private $startedAt;
+//    private $startedAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $finishedAt;
+//    private $finishedAt;
 
     /**
      * @ORM\Column(type="boolean", nullable=false, options={"default" : false})
