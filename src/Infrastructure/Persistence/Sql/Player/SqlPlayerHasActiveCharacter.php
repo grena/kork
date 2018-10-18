@@ -13,7 +13,7 @@ use PDO;
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class PlayerHasActiveCharacter implements PlayerHasActiveCharacterInterface
+class SqlPlayerHasActiveCharacter implements PlayerHasActiveCharacterInterface
 {
     /** @var Connection */
     private $sqlConnection;
@@ -32,7 +32,7 @@ class PlayerHasActiveCharacter implements PlayerHasActiveCharacterInterface
             WHERE player_id = :playerId
             AND game_id IN (
                 SELECT id
-                FROM game
+                FROM `game`
                 WHERE finished = false
             )
         ) as has_active_character
