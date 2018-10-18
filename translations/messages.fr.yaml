@@ -1,0 +1,5 @@
+kork:
+    global:
+        logout: Se déconnecter
+    lobby:
+        create_game: Créer une partie
