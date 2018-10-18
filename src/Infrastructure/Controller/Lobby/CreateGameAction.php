@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller\Lobby;
 
 use App\Application\Game\CreateGameCommand;
+use App\Application\Game\CreateGameHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CreateGameAction extends Controller
 {
+    /** @var CreateGameHandler */
+    private $createGameHandler;
+
+    public function __construct(CreateGameHandler $createGameHandler)
+    {
+        $this->createGameHandler = $createGameHandler;
+    }
+
     public function handle(): Response
     {
         $command = new CreateGameCommand();
@@ -24,6 +33,8 @@ class CreateGameAction extends Controller
         if ($violations->count() > 0) {
             return new JsonResponse($violations->get(0)->getMessage());
         }
+
+        ($this->createGameHandler)($command);
 
         return new Response('Game created');
     }

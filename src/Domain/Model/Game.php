@@ -88,4 +88,14 @@ class Game
     {
         $this->finished = $finished;
     }
+
+    public static function create(): Game
+    {
+        $game = new self();
+        $game->setCreatedAt(new \DateTime('NOW'));
+        $game->setStarted(false);
+        $game->setFinished(false);
+
+        return $game;
+    }
 }
