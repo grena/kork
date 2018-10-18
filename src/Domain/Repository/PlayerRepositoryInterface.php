@@ -15,4 +15,11 @@ interface PlayerRepositoryInterface
      * @throws PlayerNotFoundException
      */
     public function getById(string $id): Player;
+
+    /**
+     * @throws PlayerNotFoundException
+     */
+    public function getByUsername(string $username): Player;
+
+    public function add(Player $player): void;
 }

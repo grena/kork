@@ -18,4 +18,14 @@ class PlayerNotFoundException extends \RuntimeException
 
         return new self($message);
     }
+
+    public static function withUsername(string $username): self
+    {
+        $message = sprintf(
+            'Could not find player with username "%s"',
+            (string) $username
+        );
+
+        return new self($message);
+    }
 }
