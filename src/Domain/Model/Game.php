@@ -48,4 +48,44 @@ class Game
      * @ORM\Column(type="boolean", nullable=false, options={"default" : false})
      */
     private $finished;
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function isStarted(): bool
+    {
+        return $this->started;
+    }
+
+    public function setStarted($started): void
+    {
+        $this->started = $started;
+    }
+
+    public function isFinished(): bool
+    {
+        return $this->finished;
+    }
+
+    public function setFinished($finished): void
+    {
+        $this->finished = $finished;
+    }
 }

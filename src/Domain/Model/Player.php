@@ -55,4 +55,14 @@ class Player extends User
     {
         $this->github_access_token = $github_access_token;
     }
+
+    public function getGithubId(): ?string
+    {
+        return $this->github_id;
+    }
+
+    public function getGithubAccessToken(): ?string
+    {
+        return $this->github_access_token;
+    }
 }
