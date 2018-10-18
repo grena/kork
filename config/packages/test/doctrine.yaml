@@ -1,0 +1,3 @@
+doctrine:
+    dbal:
+        url: 'mysql://kork_test:kork_test@127.0.0.1:3306/kork_test'
