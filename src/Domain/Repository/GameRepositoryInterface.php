@@ -12,4 +12,6 @@ use App\Domain\Model\Game;
 interface GameRepositoryInterface
 {
     public function add(Game $game): void;
+
+    public function nextIdentifier(): string;
 }

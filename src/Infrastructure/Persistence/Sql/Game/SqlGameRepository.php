@@ -8,6 +8,7 @@ use App\Domain\Model\Game;
 use App\Domain\Repository\GameRepositoryInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
@@ -51,5 +52,8 @@ SQL;
         }
     }
 
-    // TODO: implement nextIdentifier method
+    public function nextIdentifier(): string
+    {
+        return Uuid::uuid4()->toString();
+    }
 }
