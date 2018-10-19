@@ -13,5 +13,7 @@ interface GameRepositoryInterface
 {
     public function add(Game $game): void;
 
+    public function getByIdentifier(string $id): Game;
+
     public function nextIdentifier(): string;
 }

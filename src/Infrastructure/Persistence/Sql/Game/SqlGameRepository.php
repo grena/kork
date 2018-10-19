@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Persistence\Sql\Game;
 
 use App\Domain\Model\Game;
+use App\Domain\Repository\GameNotFoundException;
 use App\Domain\Repository\GameRepositoryInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
@@ -52,8 +53,43 @@ SQL;
         }
     }
 
+    public function getByIdentifier(string $id): Game
+    {
+        $fetch = <<<SQL
+        SELECT *
+        FROM `game`
+        WHERE id = :id;
+SQL;
+        $statement = $this->sqlConnection->executeQuery(
+            $fetch,
+            ['id' => (string) $id]
+        );
+
+        $result = $statement->fetch();
+        if (!$result) {
+            throw GameNotFoundException::withId($id);
+        }
+
+        return $this->hydrateGame($result);
+    }
+
     public function nextIdentifier(): string
     {
         return Uuid::uuid4()->toString();
+    }
+
+    private function hydrateGame($result): Game
+    {
+        $platform = $this->sqlConnection->getDatabasePlatform();
+        $isStarted = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['started'], $platform);
+        $isFinished = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['finished'], $platform);
+
+        $game = new Game();
+        $game->setId($result['id']);
+        $game->setCreatedAt(new \DateTime($result['created_at']));
+        $game->setStarted($isStarted);
+        $game->setFinished($isFinished);
+
+        return $game;
     }
 }
