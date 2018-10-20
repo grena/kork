@@ -36,3 +36,7 @@ services:
         arguments:
             - '@fos_user.user_manager'
             - { github: github_id, google: google_id }
+
+    App\Domain\Model\:
+        resource: '../src/Domain/Model/*'
+        autowire: false
