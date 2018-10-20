@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
-use App\Domain\Model\Character;
-use App\Domain\Model\Game;
+use App\Domain\Model\Character\Character;
+use App\Domain\Model\Character\CharacterIdentifier;
+use App\Domain\Model\Character\CharacterName;
+use App\Domain\Model\Game\Game;
+use App\Domain\Model\Game\GameCreatedAt;
+use App\Domain\Model\Game\GameFinished;
+use App\Domain\Model\Game\GameIdentifier;
+use App\Domain\Model\Game\GameStarted;
 use App\Domain\Model\Player;
 use App\Infrastructure\Persistence\Sql\Character\SqlCharacterRepository;
 use App\Infrastructure\Persistence\Sql\Game\SqlGameRepository;
@@ -72,60 +78,68 @@ class SqlIntegrationTestCase extends KernelTestCase
         $robert->setEnabled(true);
         $this->playerRepository->add($robert);
 
-        $gameWaiting = new Game();
-        $gameWaiting->setId('game_waiting_for_players');
-        $gameWaiting->setCreatedAt(new \DateTime('NOW'));
-        $gameWaiting->setFinished(false);
-        $gameWaiting->setStarted(false);
+        $gameWaiting = Game::create(
+            GameIdentifier::fromString('game_waiting_for_players'),
+            GameCreatedAt::now(),
+            GameStarted::fromBoolean(false),
+            GameFinished::fromBoolean(false)
+        );
         $this->gameRepository->add($gameWaiting);
 
-        $gameRunning = new Game();
-        $gameRunning->setId('game_running');
-        $gameRunning->setCreatedAt(new \DateTime('NOW'));
-        $gameRunning->setFinished(false);
-        $gameRunning->setStarted(true);
+        $gameRunning = Game::create(
+            GameIdentifier::fromString('game_running'),
+            GameCreatedAt::now(),
+            GameStarted::fromBoolean(true),
+            GameFinished::fromBoolean(false)
+        );
         $this->gameRepository->add($gameRunning);
 
-        $gameFinished = new Game();
-        $gameFinished->setId('game_finished');
-        $gameFinished->setCreatedAt(new \DateTime('NOW'));
-        $gameFinished->setFinished(true);
-        $gameFinished->setStarted(true);
+        $gameFinished = Game::create(
+            GameIdentifier::fromString('game_finished'),
+            GameCreatedAt::now(),
+            GameStarted::fromBoolean(true),
+            GameFinished::fromBoolean(true)
+        );
         $this->gameRepository->add($gameFinished);
 
-        $grenaCharacterRunning = new Character();
-        $grenaCharacterRunning->setId('grena_game_running');
-        $grenaCharacterRunning->setGame($gameRunning);
-        $grenaCharacterRunning->setPlayer($grena);
-        $grenaCharacterRunning->setName('Docteur Slibard');
+        $grenaCharacterRunning = Character::create(
+            CharacterIdentifier::fromString('grena_game_running'),
+            $gameRunning,
+            $grena,
+            CharacterName::fromString('Docteur Slibard')
+        );
         $this->characterRepository->add($grenaCharacterRunning);
 
-        $grenaCharacterFinished = new Character();
-        $grenaCharacterFinished->setId('grena_game_finished');
-        $grenaCharacterFinished->setGame($gameFinished);
-        $grenaCharacterFinished->setPlayer($grena);
-        $grenaCharacterFinished->setName('Captain Krapoulax');
+        $grenaCharacterFinished = Character::create(
+            CharacterIdentifier::fromString('grena_game_finished'),
+            $gameFinished,
+            $grena,
+            CharacterName::fromString('Captain Krapoulax')
+        );
         $this->characterRepository->add($grenaCharacterFinished);
 
-        $bobCharacterRunning = new Character();
-        $bobCharacterRunning->setId('bob_game_running');
-        $bobCharacterRunning->setGame($gameRunning);
-        $bobCharacterRunning->setPlayer($bob);
-        $bobCharacterRunning->setName('Slurpy le Vicelard');
+        $bobCharacterRunning = Character::create(
+            CharacterIdentifier::fromString('bob_game_running'),
+            $gameRunning,
+            $bob,
+            CharacterName::fromString('Slurpy le Vicelard')
+        );
         $this->characterRepository->add($bobCharacterRunning);
 
-        $leaverCharacterFinished = new Character();
-        $leaverCharacterFinished->setId('leaver_game_finished');
-        $leaverCharacterFinished->setGame($gameFinished);
-        $leaverCharacterFinished->setPlayer($leaver);
-        $leaverCharacterFinished->setName('Inspecteur Natchouki');
+        $leaverCharacterFinished = Character::create(
+            CharacterIdentifier::fromString('leaver_game_finished'),
+            $gameFinished,
+            $leaver,
+            CharacterName::fromString('Inspecteur Natchouki')
+        );
         $this->characterRepository->add($leaverCharacterFinished);
 
-        $robertCharacterWaiting = new Character();
-        $robertCharacterWaiting->setId('robert_game_waiting');
-        $robertCharacterWaiting->setGame($gameWaiting);
-        $robertCharacterWaiting->setPlayer($robert);
-        $robertCharacterWaiting->setName('Sprootch');
+        $robertCharacterWaiting = Character::create(
+            CharacterIdentifier::fromString('robert_game_waiting'),
+            $gameWaiting,
+            $robert,
+            CharacterName::fromString('Sprootch')
+        );
         $this->characterRepository->add($robertCharacterWaiting);
     }
 }

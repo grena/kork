@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repository;
 
-use App\Domain\Model\Character;
+use App\Domain\Model\Character\Character;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>

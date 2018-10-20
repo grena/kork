@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Sql\Game;
 
-use App\Domain\Model\Game;
+use App\Domain\Model\Game\Game;
+use App\Domain\Model\Game\GameCreatedAt;
+use App\Domain\Model\Game\GameFinished;
+use App\Domain\Model\Game\GameIdentifier;
+use App\Domain\Model\Game\GameStarted;
 use App\Domain\Repository\GameNotFoundException;
 use App\Domain\Repository\GameRepositoryInterface;
 use Doctrine\DBAL\Connection;
@@ -35,8 +39,8 @@ SQL;
         $affectedRows = $this->sqlConnection->executeUpdate(
             $insert,
             [
-                'id' => $game->getId(),
-                'created_at' => $game->getCreatedAt()->format('Y-m-d H:i:s'),
+                'id' => (string) $game->getId(),
+                'created_at' => (string) $game->getCreatedAt(),
                 'started' => $game->isStarted(),
                 'finished' => $game->isFinished(),
             ],
@@ -84,12 +88,11 @@ SQL;
         $isStarted = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['started'], $platform);
         $isFinished = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['finished'], $platform);
 
-        $game = new Game();
-        $game->setId($result['id']);
-        $game->setCreatedAt(new \DateTime($result['created_at']));
-        $game->setStarted($isStarted);
-        $game->setFinished($isFinished);
-
-        return $game;
+        return Game::create(
+            GameIdentifier::fromString($result['id']),
+            GameCreatedAt::fromString($result['created_at']),
+            GameStarted::fromBoolean($isStarted),
+            GameFinished::fromBoolean($isFinished)
+        );
     }
 }

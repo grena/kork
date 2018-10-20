@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Sql\Character;
 
-use App\Domain\Model\Character;
+use App\Domain\Model\Character\Character;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use Doctrine\DBAL\Connection;
 
@@ -32,10 +32,10 @@ SQL;
         $affectedRows = $this->sqlConnection->executeUpdate(
             $insert,
             [
-                'id' => $character->getId(),
-                'game_id' => $character->getGame()->getId(),
-                'player_id' => $character->getPlayer()->getId(),
-                'name' => $character->getName(),
+                'id' => (string) $character->getId(),
+                'game_id' => (string) $character->getGame()->getId(),
+                'player_id' => (string) $character->getPlayer()->getId(),
+                'name' => (string) $character->getName(),
             ]
         );
 
