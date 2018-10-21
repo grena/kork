@@ -1,0 +1,5 @@
+parameters:
+    public_autowiring: true
+
+imports:
+    - { resource: ../tests/Acceptance/Resources/persistence.yaml }
