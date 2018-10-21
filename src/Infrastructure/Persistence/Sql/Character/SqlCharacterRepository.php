@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\Persistence\Sql\Character;
 
 use App\Domain\Model\Character\Character;
+use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use Doctrine\DBAL\Connection;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
@@ -46,5 +48,10 @@ SQL;
         }
     }
 
-    // TODO: implement nextIdentifier method
+    public function nextIdentifier(): CharacterIdentifier
+    {
+        return CharacterIdentifier::fromString(
+            Uuid::uuid4()->toString()
+        );
+    }
 }
