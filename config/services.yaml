@@ -7,6 +7,9 @@ parameters:
     locale: 'fr'
     public_autowiring: false
 
+imports:
+    - { resource: ../src/Infrastructure/Symfony/Resources/config/persistence.yaml }
+
 services:
     # default configuration for services in *this* file
     _defaults:

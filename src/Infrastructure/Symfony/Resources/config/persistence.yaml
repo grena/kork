@@ -1,0 +1,8 @@
+services:
+  # Repositories
+  App\Domain\Repository\PlayerRepositoryInterface: '@App\Infrastructure\Persistence\Sql\Player\SqlPlayerRepository'
+  App\Domain\Repository\GameRepositoryInterface: '@App\Infrastructure\Persistence\Sql\Game\SqlGameRepository'
+  App\Domain\Repository\CharacterRepositoryInterface: '@App\Infrastructure\Persistence\Sql\Character\SqlCharacterRepository'
+
+  # Queries
+  App\Domain\Query\Player\PlayerHasActiveCharacterInterface: '@App\Infrastructure\Persistence\Sql\Player\SqlPlayerHasActiveCharacter'

@@ -35,4 +35,9 @@ class GameIdentifier
     {
         return $this->identifier;
     }
+
+    public function equals(GameIdentifier $identifier)
+    {
+        return $this->normalize() === $identifier->normalize();
+    }
 }
