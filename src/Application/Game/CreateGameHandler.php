@@ -7,7 +7,6 @@ namespace App\Application\Game;
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameCreatedAt;
 use App\Domain\Model\Game\GameFinished;
-use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Model\Game\GameStarted;
 use App\Domain\Repository\GameRepositoryInterface;
 
@@ -27,7 +26,7 @@ class CreateGameHandler
     public function __invoke(CreateGameCommand $command): void
     {
         $game = Game::create(
-            GameIdentifier::fromString($this->gameRepository->nextIdentifier()),
+            $this->gameRepository->nextIdentifier(),
             GameCreatedAt::now(),
             GameStarted::fromBoolean(false),
             GameFinished::fromBoolean(false)
