@@ -57,7 +57,7 @@ SQL;
         }
     }
 
-    public function getByIdentifier(string $id): Game
+    public function getByIdentifier(GameIdentifier $identifier): Game
     {
         $fetch = <<<SQL
         SELECT *
@@ -66,20 +66,22 @@ SQL;
 SQL;
         $statement = $this->sqlConnection->executeQuery(
             $fetch,
-            ['id' => (string) $id]
+            ['id' => (string) $identifier]
         );
 
         $result = $statement->fetch();
         if (!$result) {
-            throw GameNotFoundException::withId($id);
+            throw GameNotFoundException::withId($identifier);
         }
 
         return $this->hydrateGame($result);
     }
 
-    public function nextIdentifier(): string
+    public function nextIdentifier(): GameIdentifier
     {
-        return Uuid::uuid4()->toString();
+        return GameIdentifier::fromString(
+            Uuid::uuid4()->toString()
+        );
     }
 
     private function hydrateGame($result): Game
