@@ -47,3 +47,7 @@ services:
     App\Infrastructure\FileSystem\Provider\Character\NameProvider:
         arguments:
             - '%kernel.project_dir%/data/characters'
+
+    App\Infrastructure\FileSystem\Provider\Character\PictureProvider:
+        arguments:
+            - '%kernel.project_dir%/public/img/characters'
