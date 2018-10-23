@@ -77,6 +77,8 @@ class SchemaCreator
 //            ['onUpdate' => 'CASCADE']
 //        );
 
+        $characterTable->addIndex(['player_id']);
+
         $characterTable->setPrimaryKey(['id']);
 
         return $schema;
