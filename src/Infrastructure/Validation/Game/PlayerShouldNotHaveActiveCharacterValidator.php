@@ -6,7 +6,6 @@ namespace App\Infrastructure\Validation\Game;
 
 use App\Application\Game\CreateGameCommand;
 use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
-use App\Domain\Repository\PlayerRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -19,15 +18,9 @@ class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
     /** @var PlayerHasActiveCharacterInterface */
     private $hasActiveCharacter;
 
-    /** @var PlayerRepositoryInterface */
-    private $playerRepository;
-
-    public function __construct(
-        PlayerHasActiveCharacterInterface $hasActiveCharacter,
-        PlayerRepositoryInterface $playerRepository
-    ) {
+    public function __construct(PlayerHasActiveCharacterInterface $hasActiveCharacter)
+    {
         $this->hasActiveCharacter = $hasActiveCharacter;
-        $this->playerRepository = $playerRepository;
     }
 
     public function validate($command, Constraint $constraint)
@@ -64,8 +57,7 @@ class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
 
     private function validateCommand(CreateGameCommand $command)
     {
-        $player = $this->playerRepository->getById($command->playerId);
-        $hasActiveCharacter = $this->hasActiveCharacter->withPlayer($player);
+        $hasActiveCharacter = $this->hasActiveCharacter->withPlayer($command->playerId);
 
         if ($hasActiveCharacter) {
             $this->context

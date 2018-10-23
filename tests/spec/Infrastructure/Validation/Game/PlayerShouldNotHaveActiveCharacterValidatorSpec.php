@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace spec\App\Infrastructure\Validation\Game;
 
 use App\Application\Game\CreateGameCommand;
-use App\Domain\Model\Player;
 use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
-use App\Domain\Repository\PlayerRepositoryInterface;
 use App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Validator\Constraint;
@@ -19,25 +17,22 @@ class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
 {
     function let(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
-        PlayerRepositoryInterface $playerRepository,
         ExecutionContextInterface $context
     ) {
-        $this->beConstructedWith($hasActiveCharacter, $playerRepository);
+        $this->beConstructedWith($hasActiveCharacter);
+
         $this->initialize($context);
     }
 
     function it_adds_a_violation_if_player_already_has_an_active_character(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
-        PlayerRepositoryInterface $playerRepository,
         ExecutionContextInterface $context,
         CreateGameCommand $command,
         PlayerShouldNotHaveActiveCharacter $constraint,
-        Player $player,
         ConstraintViolationBuilderInterface $violationBuilder
     ) {
         $command->playerId = '12345';
-        $playerRepository->getById('12345')->willReturn($player);
-        $hasActiveCharacter->withPlayer($player)->willReturn(true);
+        $hasActiveCharacter->withPlayer('12345')->willReturn(true);
 
         $context->buildViolation(PlayerShouldNotHaveActiveCharacter::ERROR_MESSAGE)->willReturn($violationBuilder);
         $violationBuilder->addViolation()->shouldBeCalled();
@@ -47,15 +42,12 @@ class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
 
     function it_does_nothing_if_player_does_not_have_an_active_character(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
-        PlayerRepositoryInterface $playerRepository,
         ExecutionContextInterface $context,
         CreateGameCommand $command,
-        PlayerShouldNotHaveActiveCharacter $constraint,
-        Player $player
+        PlayerShouldNotHaveActiveCharacter $constraint
     ) {
         $command->playerId = '12345';
-        $playerRepository->getById('12345')->willReturn($player);
-        $hasActiveCharacter->withPlayer($player)->willReturn(false);
+        $hasActiveCharacter->withPlayer('12345')->willReturn(false);
 
         $context->buildViolation(PlayerShouldNotHaveActiveCharacter::ERROR_MESSAGE)->shouldNotBeCalled();
 

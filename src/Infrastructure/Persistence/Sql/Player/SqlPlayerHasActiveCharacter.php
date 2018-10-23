@@ -23,7 +23,7 @@ class SqlPlayerHasActiveCharacter implements PlayerHasActiveCharacterInterface
         $this->sqlConnection = $sqlConnection;
     }
 
-    public function withPlayer(Player $player): bool
+    public function withPlayer(string $playerIdentifier): bool
     {
         $query = <<<SQL
         SELECT EXISTS (
@@ -38,7 +38,7 @@ class SqlPlayerHasActiveCharacter implements PlayerHasActiveCharacterInterface
         ) as has_active_character
 SQL;
         $statement = $this->sqlConnection->executeQuery($query, [
-            'playerId' => (string) $player->getId()
+            'playerId' => $playerIdentifier
         ]);
 
         $platform = $this->sqlConnection->getDatabasePlatform();
