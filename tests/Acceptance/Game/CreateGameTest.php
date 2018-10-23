@@ -82,6 +82,10 @@ class CreateGameTest extends FakeIntegrationTestCase
         // Assert the game has been created
         $createdGame = $this->gameRepository->getByIdentifier(GameIdentifier::fromString('0'));
         $this->assertInstanceOf(Game::class, $createdGame);
+
+        // Assert the character has been created
+        $characters = $this->characterRepository->findAllByGame(GameIdentifier::fromString('0'));
+        $this->assertCount(1, $characters);
     }
 
     /**
