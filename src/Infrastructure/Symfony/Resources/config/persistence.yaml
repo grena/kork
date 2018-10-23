@@ -6,3 +6,4 @@ services:
 
   # Queries
   App\Domain\Query\Player\PlayerHasActiveCharacterInterface: '@App\Infrastructure\Persistence\Sql\Player\SqlPlayerHasActiveCharacter'
+  App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface: '@App\Infrastructure\Persistence\Sql\Game\SqlFindAllGamesWaitingForPlayer'

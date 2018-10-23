@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class PlayerShouldNotHaveActiveCharacter extends Constraint
 {
-    public const ERROR_MESSAGE = 'Player already has an active character in game';
+    public const ERROR_MESSAGE = 'You already have an active character in game';
 
     public function getTargets()
     {

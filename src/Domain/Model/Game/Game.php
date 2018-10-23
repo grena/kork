@@ -9,6 +9,9 @@ namespace App\Domain\Model\Game;
  */
 class Game
 {
+    /** @var int */
+    public const NUMBER_OF_PLAYERS_REQUIRED_TO_START = 5;
+
     /** @var GameIdentifier */
     private $id;
 

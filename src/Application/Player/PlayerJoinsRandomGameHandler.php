@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Application\Player;
+
+use App\Domain\Generator\Character\CharacterGeneratorInterface;
+use App\Domain\Model\Game\Game;
+use App\Domain\Model\Game\GameCreatedAt;
+use App\Domain\Model\Game\GameFinished;
+use App\Domain\Model\Game\GameStarted;
+use App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface;
+use App\Domain\Repository\CharacterRepositoryInterface;
+use App\Domain\Repository\GameRepositoryInterface;
+
+/**
+ * @author Adrien Pétremann <hello@grena.fr>
+ */
+class PlayerJoinsRandomGameHandler
+{
+    /** @var FindAllGamesWaitingForPlayerInterface */
+    private $findAllGamesWaitingForPlayer;
+
+    /** @var CharacterGeneratorInterface */
+    private $characterGenerator;
+
+    /** @var GameRepositoryInterface */
+    private $gameRepository;
+
+    /** @var CharacterRepositoryInterface */
+    private $characterRepository;
+
+    public function __construct(
+        FindAllGamesWaitingForPlayerInterface $findAllGamesWaitingForPlayer,
+        CharacterGeneratorInterface $characterGenerator,
+        GameRepositoryInterface $gameRepository,
+        CharacterRepositoryInterface $characterRepository
+    ) {
+        $this->findAllGamesWaitingForPlayer = $findAllGamesWaitingForPlayer;
+        $this->characterGenerator = $characterGenerator;
+        $this->gameRepository = $gameRepository;
+        $this->characterRepository = $characterRepository;
+    }
+
+    public function __invoke(PlayerJoinsRandomGameCommand $command)
+    {
+        $availableGames = ($this->findAllGamesWaitingForPlayer)();
+
+        if (empty($availableGames)) {
+            $game = Game::create(
+                $this->gameRepository->nextIdentifier(),
+                GameCreatedAt::now(),
+                GameStarted::fromBoolean(false),
+                GameFinished::fromBoolean(false)
+            );
+            $this->gameRepository->add($game);
+
+            $gameIdentifier = $game->getId();
+        } else {
+            $gameIdentifier = $availableGames[array_rand($availableGames)];
+        }
+
+        $character = $this->characterGenerator->forGameAndPlayer($gameIdentifier, $command->playerId);
+        $this->characterRepository->add($character);
+    }
+}
