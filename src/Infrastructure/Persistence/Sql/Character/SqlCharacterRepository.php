@@ -31,17 +31,18 @@ class SqlCharacterRepository implements CharacterRepositoryInterface
     {
         $insert = <<<SQL
         INSERT INTO `character`
-            (id, game_id, player_id, name)
+            (id, game_id, player_id, name, picture)
         VALUES 
-            (:id, :game_id, :player_id, :name);
+            (:id, :game_id, :player_id, :name, :picture);
 SQL;
         $affectedRows = $this->sqlConnection->executeUpdate(
             $insert,
             [
                 'id' => (string) $character->getId(),
-                'game_id' => (string) $character->getGame()->getId(),
-                'player_id' => (string) $character->getPlayer()->getId(),
+                'game_id' => (string) $character->getGameIdentifier(),
+                'player_id' => (string) $character->getPlayerIdentifier(),
                 'name' => (string) $character->getName(),
+                'picture' => (string) $character->getPicture(),
             ]
         );
 

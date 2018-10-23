@@ -60,6 +60,7 @@ class SchemaCreator
         $characterTable->addColumn('game_id', Type::STRING, ['length' => 36, 'notnull' => true]);
         $characterTable->addColumn('player_id', Type::STRING, ['length' => 36, 'notnull' => true]);
         $characterTable->addColumn('name', Type::STRING, ['length' => 255, 'notnull' => true]);
+        $characterTable->addColumn('picture', Type::STRING, ['length' => 255, 'notnull' => true]);
 
         $characterTable->addForeignKeyConstraint(
             $gameTable,
