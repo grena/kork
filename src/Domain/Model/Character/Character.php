@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Character;
 
-use App\Domain\Model\Game\Game;
-use App\Domain\Model\Player;
+use App\Domain\Model\Game\GameIdentifier;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
@@ -15,26 +14,46 @@ class Character
     /** @var CharacterIdentifier */
     private $id;
 
-    /** @var Game */
-    private $game;
+    /** @var GameIdentifier */
+    private $gameIdentifier;
 
-    /** @var Player */
-    private $player;
+    /** @var string */
+    private $playerIdentifier;
 
     /** @var CharacterName */
     private $name;
 
-    private function __construct(CharacterIdentifier $id, Game $game, Player $player, CharacterName $name)
-    {
+    /** @var CharacterPicture */
+    private $picture;
+
+    private function __construct(
+        CharacterIdentifier $id,
+        GameIdentifier $gameIdentifier,
+        string $playerIdentifier,
+        CharacterName $name,
+        CharacterPicture $picture
+    ) {
         $this->id = $id;
-        $this->game = $game;
-        $this->player = $player;
+        $this->gameIdentifier = $gameIdentifier;
+        $this->playerIdentifier = $playerIdentifier;
         $this->name = $name;
+        $this->picture = $picture;
     }
 
-    public static function create(CharacterIdentifier $id, Game $game, Player $player, CharacterName $name)
-    {
-        return new self($id, $game, $player, $name);
+    public static function create(
+        CharacterIdentifier $id,
+        GameIdentifier $gameIdentifier,
+        string $playerIdentifier,
+        CharacterName $name,
+        CharacterPicture $picture
+    ) {
+        return new self(
+            $id,
+            $gameIdentifier,
+            $playerIdentifier,
+            $name,
+            $picture
+        );
     }
 
     public function getId(): CharacterIdentifier
@@ -42,18 +61,23 @@ class Character
         return $this->id;
     }
 
-    public function getGame(): Game
+    public function getGameIdentifier(): GameIdentifier
     {
-        return $this->game;
+        return $this->gameIdentifier;
     }
 
-    public function getPlayer(): Player
+    public function getPlayerIdentifier(): string
     {
-        return $this->player;
+        return $this->playerIdentifier;
     }
 
     public function getName(): CharacterName
     {
         return $this->name;
+    }
+
+    public function getPicture(): CharacterPicture
+    {
+        return $this->picture;
     }
 }

@@ -9,6 +9,7 @@ use App\Application\Game\CreateGameHandler;
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
+use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameCreatedAt;
 use App\Domain\Model\Game\GameFinished;
@@ -105,9 +106,10 @@ class CreateGameTest extends FakeIntegrationTestCase
 
         $character = Character::create(
             CharacterIdentifier::fromString('bob'),
-            $game,
-            $player,
-            CharacterName::fromString('bob')
+            $game->getId(),
+            $player->getId(),
+            CharacterName::fromString('bob'),
+            CharacterPicture::fromString('img/male/bob.png')
         );
         $this->characterRepository->add($character);
 
