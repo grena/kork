@@ -6,8 +6,12 @@ namespace App\Infrastructure\Persistence\Sql\Character;
 
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
+use App\Domain\Model\Character\CharacterName;
+use App\Domain\Model\Character\CharacterPicture;
+use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use Doctrine\DBAL\Connection;
+use PDO;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -52,6 +56,42 @@ SQL;
     {
         return CharacterIdentifier::fromString(
             Uuid::uuid4()->toString()
+        );
+    }
+
+    /**
+     * @return Character[]
+     */
+    public function findAllByGame(GameIdentifier $gameIdentifier): array
+    {
+        $fetch = <<<SQL
+        SELECT *
+        FROM `character`
+        WHERE game_id = :gameId;
+SQL;
+        $statement = $this->sqlConnection->executeQuery(
+            $fetch,
+            ['gameId' => (string) $gameIdentifier]
+        );
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $characters = [];
+        foreach ($results as $result) {
+            $characters[] = $this->hydrateCharacter($result);
+        }
+
+        return $characters;
+    }
+
+    private function hydrateCharacter(array $result): Character
+    {
+        return Character::create(
+            CharacterIdentifier::fromString($result['id']),
+            GameIdentifier::fromString($result['game_id']),
+            (string) $result['player_id'],
+            CharacterName::fromString($result['name']),
+            CharacterPicture::fromString($result['picture'])
         );
     }
 }
