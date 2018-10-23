@@ -31,6 +31,9 @@ class SqlIntegrationTestCase extends KernelTestCase
     /** @var SqlCharacterRepository */
     protected $characterRepository;
 
+    /** @var DatabaseHelper */
+    protected $databaseHelper;
+
     protected function setUp()
     {
         parent::setUp();
@@ -40,8 +43,8 @@ class SqlIntegrationTestCase extends KernelTestCase
         $this->gameRepository = self::$container->get('App\Infrastructure\Persistence\Sql\Game\SqlGameRepository');
         $this->characterRepository = self::$container->get('App\Infrastructure\Persistence\Sql\Character\SqlCharacterRepository');
 
-        $databaseHelper = new DatabaseHelper(self::$container->get('database_connection'));
-        $databaseHelper->resetDatabase();
+        $this->databaseHelper = new DatabaseHelper(self::$container->get('database_connection'));
+        $this->databaseHelper->resetDatabase();
 
         // TODO: Put in real fixtures manager
         $grena = new Player();
