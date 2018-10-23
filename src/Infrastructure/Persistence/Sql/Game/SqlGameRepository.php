@@ -40,7 +40,7 @@ SQL;
             $insert,
             [
                 'id' => (string) $game->getId(),
-                'created_at' => (string) $game->getCreatedAt(),
+                'created_at' => (string) $game->getCreatedAt()->normalize(),
                 'started' => $game->isStarted(),
                 'finished' => $game->isFinished(),
             ],
