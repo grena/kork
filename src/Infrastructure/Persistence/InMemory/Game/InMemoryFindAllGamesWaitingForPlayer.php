@@ -41,6 +41,14 @@ class InMemoryFindAllGamesWaitingForPlayer implements FindAllGamesWaitingForPlay
             $gameIdentifier = $game->getId();
             $charactersInGame = $this->characterRepository->findAllByGame($gameIdentifier);
 
+            if ($game->isStarted()) {
+                continue;
+            }
+
+            if ($game->isFinished()) {
+                continue;
+            }
+
             if (count($charactersInGame) < Game::NUMBER_OF_PLAYERS_REQUIRED_TO_START) {
                 $gameIdentifiers[] = $gameIdentifier;
             }
