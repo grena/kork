@@ -16,5 +16,7 @@ interface GameRepositoryInterface
 
     public function getByIdentifier(GameIdentifier $identifier): Game;
 
+    public function findActiveForPlayer(string $playerIdentifier): ?Game;
+
     public function nextIdentifier(): GameIdentifier;
 }
