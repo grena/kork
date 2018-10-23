@@ -14,5 +14,5 @@ index:
     controller: App\Infrastructure\Controller\Lobby\IndexAction::handle
 
 create_game:
-    path: /create-game
+    path: /game/create
     controller: App\Infrastructure\Controller\Lobby\CreateGameAction::handle
