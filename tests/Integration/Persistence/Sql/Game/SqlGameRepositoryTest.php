@@ -43,4 +43,32 @@ class SqlGameRepositoryTest extends SqlIntegrationTestCase
 
         $this->gameRepository->getByIdentifier($identifier);
     }
+
+    /**
+     * @test
+     */
+    public function it_finds_the_active_game_the_player_has_an_character_in()
+    {
+        $playerIdentifier = 'grena-123';
+        $gameRunning = Game::create(
+            GameIdentifier::fromString('game_running'),
+            GameCreatedAt::fromString('2018-10-01 19:00:00'),
+            GameStarted::fromBoolean(true),
+            GameFinished::fromBoolean(false)
+        );
+
+        $foundGame = $this->gameRepository->findActiveForPlayer($playerIdentifier);
+        $this->assertEquals($gameRunning, $foundGame);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_null_if_the_given_player_has_no_active_game()
+    {
+        $playerIdentifier = 'leaver-123';
+
+        $foundGame = $this->gameRepository->findActiveForPlayer($playerIdentifier);
+        $this->assertNull($foundGame);
+    }
 }

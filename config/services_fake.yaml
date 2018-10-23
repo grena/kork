@@ -1,3 +1,8 @@
+# This is the services file for "fake" environment.
+#
+# The "fake" environment is an environment when all ports are faked:
+# All SQL adapters are replaced by InMemory ones.
+
 parameters:
     public_autowiring: true
 

@@ -9,6 +9,7 @@ use App\Application\Game\CreateGameHandler;
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
+use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameCreatedAt;
 use App\Domain\Model\Game\GameFinished;
@@ -81,6 +82,10 @@ class CreateGameTest extends FakeIntegrationTestCase
         // Assert the game has been created
         $createdGame = $this->gameRepository->getByIdentifier(GameIdentifier::fromString('0'));
         $this->assertInstanceOf(Game::class, $createdGame);
+
+        // Assert the character has been created
+        $characters = $this->characterRepository->findAllByGame(GameIdentifier::fromString('0'));
+        $this->assertCount(1, $characters);
     }
 
     /**
@@ -105,9 +110,10 @@ class CreateGameTest extends FakeIntegrationTestCase
 
         $character = Character::create(
             CharacterIdentifier::fromString('bob'),
-            $game,
-            $player,
-            CharacterName::fromString('bob')
+            $game->getId(),
+            $player->getId(),
+            CharacterName::fromString('bob'),
+            CharacterPicture::fromString('img/male/bob.png')
         );
         $this->characterRepository->add($character);
 

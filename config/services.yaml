@@ -43,3 +43,11 @@ services:
     App\Domain\Model\:
         resource: '../src/Domain/Model/*'
         autowire: false
+
+    App\Infrastructure\FileSystem\Provider\Character\NameProvider:
+        arguments:
+            - '%kernel.project_dir%/data/characters'
+
+    App\Infrastructure\FileSystem\Provider\Character\PictureProvider:
+        arguments:
+            - '%kernel.project_dir%/public/img/characters'

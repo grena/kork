@@ -1,2 +1,7 @@
+# This is the services file for "test" environment.
+#
+# The "test" environment is an environment when all data are faked:
+# A different MySQL database is used.
+
 parameters:
     public_autowiring: true

@@ -7,6 +7,7 @@ namespace App\Tests\Integration;
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
+use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameCreatedAt;
 use App\Domain\Model\Game\GameFinished;
@@ -88,7 +89,7 @@ class SqlIntegrationTestCase extends KernelTestCase
 
         $gameRunning = Game::create(
             GameIdentifier::fromString('game_running'),
-            GameCreatedAt::now(),
+            GameCreatedAt::fromString('2018-10-01 19:00:00'),
             GameStarted::fromBoolean(true),
             GameFinished::fromBoolean(false)
         );
@@ -104,41 +105,46 @@ class SqlIntegrationTestCase extends KernelTestCase
 
         $grenaCharacterRunning = Character::create(
             CharacterIdentifier::fromString('grena_game_running'),
-            $gameRunning,
-            $grena,
-            CharacterName::fromString('Docteur Slibard')
+            $gameRunning->getId(),
+            $grena->getId(),
+            CharacterName::fromString('Docteur Slibard'),
+            CharacterPicture::fromString('img/male/slib.png')
         );
         $this->characterRepository->add($grenaCharacterRunning);
 
         $grenaCharacterFinished = Character::create(
             CharacterIdentifier::fromString('grena_game_finished'),
-            $gameFinished,
-            $grena,
-            CharacterName::fromString('Captain Krapoulax')
+            $gameFinished->getId(),
+            $grena->getId(),
+            CharacterName::fromString('Captain Krapoulax'),
+            CharacterPicture::fromString('img/other/krap.png')
         );
         $this->characterRepository->add($grenaCharacterFinished);
 
         $bobCharacterRunning = Character::create(
             CharacterIdentifier::fromString('bob_game_running'),
-            $gameRunning,
-            $bob,
-            CharacterName::fromString('Slurpy le Vicelard')
+            $gameRunning->getId(),
+            $bob->getId(),
+            CharacterName::fromString('Slurpy le Vicelard'),
+            CharacterPicture::fromString('img/other/slur.png')
         );
         $this->characterRepository->add($bobCharacterRunning);
 
         $leaverCharacterFinished = Character::create(
             CharacterIdentifier::fromString('leaver_game_finished'),
-            $gameFinished,
-            $leaver,
-            CharacterName::fromString('Inspecteur Natchouki')
+            $gameFinished->getId(),
+            $leaver->getId(),
+            CharacterName::fromString('Inspecteur Natchouki'),
+            CharacterPicture::fromString('img/male/natch.png')
         );
         $this->characterRepository->add($leaverCharacterFinished);
 
         $robertCharacterWaiting = Character::create(
             CharacterIdentifier::fromString('robert_game_waiting'),
-            $gameWaiting,
-            $robert,
-            CharacterName::fromString('Sprootch')
+            $gameWaiting->getId(),
+            $robert->getId(),
+            CharacterName::fromString('Sprootch'),
+            CharacterPicture::fromString('img/other/sproo.png')
         );
         $this->characterRepository->add($robertCharacterWaiting);
     }

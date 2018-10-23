@@ -6,6 +6,7 @@ namespace App\Infrastructure\Persistence\InMemory\Character;
 
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
+use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Repository\CharacterRepositoryInterface;
 
 /**
@@ -26,5 +27,15 @@ class InMemoryCharacterRepository implements CharacterRepositoryInterface
         return CharacterIdentifier::fromString(
             (string) count($this->characters)
         );
+    }
+
+    /**
+     * @return Character[]
+     */
+    public function findAllByGame(GameIdentifier $gameIdentifier): array
+    {
+        return array_filter($this->characters, function (Character $character) use ($gameIdentifier) {
+            return $character->getGameIdentifier()->equals($gameIdentifier);
+        });
     }
 }

@@ -40,7 +40,7 @@ SQL;
             $insert,
             [
                 'id' => (string) $game->getId(),
-                'created_at' => (string) $game->getCreatedAt(),
+                'created_at' => (string) $game->getCreatedAt()->normalize(),
                 'started' => $game->isStarted(),
                 'finished' => $game->isFinished(),
             ],
@@ -82,6 +82,29 @@ SQL;
         return GameIdentifier::fromString(
             Uuid::uuid4()->toString()
         );
+    }
+
+    public function findActiveForPlayer(string $playerIdentifier): ?Game
+    {
+        $fetch = <<<SQL
+        SELECT g.*
+        FROM `game` as g
+        LEFT JOIN `character` as c
+            ON g.id = c.game_id
+        WHERE c.player_id = :playerId
+        AND g.finished = false
+SQL;
+        $statement = $this->sqlConnection->executeQuery(
+            $fetch,
+            ['playerId' => (string) $playerIdentifier]
+        );
+
+        $result = $statement->fetch();
+        if (!$result) {
+            return null;
+        }
+
+        return $this->hydrateGame($result);
     }
 
     private function hydrateGame($result): Game
