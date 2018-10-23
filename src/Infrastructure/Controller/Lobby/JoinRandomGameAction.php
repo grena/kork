@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller\Lobby;
 
-use App\Application\Game\CreateGameCommand;
-use App\Application\Game\CreateGameHandler;
+use App\Application\Player\PlayerJoinsRandomGameCommand;
+use App\Application\Player\PlayerJoinsRandomGameHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,19 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class CreateGameAction extends Controller
+class JoinRandomGameAction extends Controller
 {
-    /** @var CreateGameHandler */
-    private $createGameHandler;
+    /** @var PlayerJoinsRandomGameHandler */
+    private $playerJoinsRandomGameHandler;
 
-    public function __construct(CreateGameHandler $createGameHandler)
+    public function __construct(PlayerJoinsRandomGameHandler $playerJoinsRandomGameHandler)
     {
-        $this->createGameHandler = $createGameHandler;
+        $this->playerJoinsRandomGameHandler = $playerJoinsRandomGameHandler;
     }
 
     public function handle(): Response
     {
-        $command = new CreateGameCommand();
+        $command = new PlayerJoinsRandomGameCommand();
         $command->playerId = $this->getUser()->getId();
 
         $violations = $this->get('validator')->validate($command);
@@ -34,7 +34,7 @@ class CreateGameAction extends Controller
             return new JsonResponse($violations->get(0)->getMessage());
         }
 
-        ($this->createGameHandler)($command);
+        ($this->playerJoinsRandomGameHandler)($command);
 
         return $this->redirectToRoute('lobby');
     }

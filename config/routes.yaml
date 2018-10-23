@@ -13,6 +13,6 @@ index:
     path: /
     controller: App\Infrastructure\Controller\Lobby\IndexAction::handle
 
-create_game:
-    path: /game/create
-    controller: App\Infrastructure\Controller\Lobby\CreateGameAction::handle
+join_random_game:
+    path: /game/join
+    controller: App\Infrastructure\Controller\Lobby\JoinRandomGameAction::handle
