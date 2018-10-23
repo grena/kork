@@ -36,6 +36,6 @@ class CreateGameAction extends Controller
 
         ($this->createGameHandler)($command);
 
-        return new Response('Game created');
+        return $this->redirectToRoute('lobby');
     }
 }

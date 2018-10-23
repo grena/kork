@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="block">
+        <p class="small">Salut {{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
+
+        {% for character in characters %}
+            <div style="text-align: center;">
+                <img src="{{ character.picture }}" alt=""> <br>
+                <span>{{ character.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock body %}
