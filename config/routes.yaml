@@ -16,3 +16,7 @@ index:
 join_random_game:
     path: /game/join
     controller: App\Infrastructure\Controller\Lobby\JoinRandomGameAction::handle
+
+join_game:
+    path: /game/join/{gameId}
+    controller: App\Infrastructure\Controller\Lobby\JoinGameAction::handle
