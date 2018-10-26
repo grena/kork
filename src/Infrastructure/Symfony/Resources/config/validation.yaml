@@ -5,3 +5,13 @@ App\Application\Game\CreateGameCommand:
 App\Application\Player\PlayerJoinsRandomGameCommand:
     constraints:
         - App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter: ~
+
+App\Application\Player\PlayerJoinsGameCommand:
+    group_sequence:
+        - PlayerJoinsGameCommand
+        - Advanced
+    constraints:
+        - App\Infrastructure\Validation\Game\GameExists: ~
+        - App\Infrastructure\Validation\Game\GameIsWaitingForPlayer: { groups: [Advanced] }
+        - App\Infrastructure\Validation\Game\GameHasRoomForNewPlayer: { groups: [Advanced] }
+        - App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter: ~
