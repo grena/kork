@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   font-family: 'Electrolize', sans-serif;
   background: url('img/dotted.png');
@@ -87,5 +93,24 @@ a {
 
   &.login {
     width: 500px;
+  }
+}
+
+input[type="text"] {
+  size: 40px;
+  background-color: #040A13;
+  border: 1px solid #070F1C;
+  color: #53A7C5;
+  padding: 0 0 0 10px;
+  height: 35px;
+
+  &:focus {
+    border: 1px solid #00b7ca;
+    border-top-color: rgb(0, 183, 202);
+    border-right-color: rgb(0, 183, 202);
+    border-bottom-color: rgb(0, 183, 202);
+    border-left-color: rgb(0, 183, 202);
+    color: #42c6e7;
+    box-shadow: inset 0 0 20px rgba(0,112,200,0.3);
   }
 }

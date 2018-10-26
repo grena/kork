@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Validation\Game;
 
 use App\Application\Game\CreateGameCommand;
+use App\Application\Player\PlayerJoinsGameCommand;
 use App\Application\Player\PlayerJoinsRandomGameCommand;
 use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
 use Symfony\Component\Validator\Constraint;
@@ -36,7 +37,11 @@ class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
      */
     private function checkCommandType($command): void
     {
-        if (!$command instanceof CreateGameCommand && !$command instanceof PlayerJoinsRandomGameCommand) {
+        if (
+            !$command instanceof CreateGameCommand &&
+            !$command instanceof PlayerJoinsRandomGameCommand &&
+            !$command instanceof PlayerJoinsGameCommand
+        ) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Expected argument to be of class "%s" or "%s", "%s" given',

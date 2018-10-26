@@ -4,11 +4,18 @@
     <div class="block">
         <p class="small">Salut {{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
 
+        <p class="text-center">
+            <span>{{ 'kork.lobby.joing_game_link'|trans }}</span>
+            <br>
+            <input style="display: block; width: 100%; margin-top: 10px;" type="text" value="{{ url('join_game', {'gameId': game.id}) }}" readonly>
+        </p>
+
         {% for character in characters %}
             <div style="text-align: center;">
                 <img src="{{ character.picture }}" alt=""> <br>
                 <span>{{ character.name }}</span>
             </div>
         {% endfor %}
+
     </div>
 {% endblock body %}

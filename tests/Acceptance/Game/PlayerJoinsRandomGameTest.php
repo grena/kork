@@ -54,7 +54,7 @@ class PlayerJoinsRandomGameTest extends FakeIntegrationTestCase
     /**
      * @test
      */
-    public function a_player_can_joins_a_random_available_game_waiting_for_player()
+    public function a_player_can_join_a_random_available_game_waiting_for_player()
     {
         $player = new Player();
         $player->setId('grena-12345');

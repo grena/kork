@@ -7,3 +7,6 @@ services:
   # Queries
   App\Domain\Query\Player\PlayerHasActiveCharacterInterface: '@App\Infrastructure\Persistence\InMemory\Player\InMemoryPlayerHasActiveCharacter'
   App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryFindAllGamesWaitingForPlayer'
+  App\Domain\Query\Game\GameExistsInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryGameExists'
+  App\Domain\Query\Game\IsGameWaitingForPlayerInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryIsGameWaitingForPlayer'
+  App\Domain\Query\Character\CountCharactersByGameInterface: '@App\Infrastructure\Persistence\InMemory\Character\InMemoryCountCharactersByGame'
