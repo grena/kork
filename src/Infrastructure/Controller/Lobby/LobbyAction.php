@@ -42,7 +42,10 @@ class LobbyAction extends Controller
 
             $characters = $this->characterRepository->findAllByGame($currentGame->getId());
 
-            return $this->render('lobby_in.html.twig', ['characters' => $characters]);
+            return $this->render('lobby_in.html.twig', [
+                'characters' => $characters,
+                'game' => $currentGame
+            ]);
         }
     }
 }
