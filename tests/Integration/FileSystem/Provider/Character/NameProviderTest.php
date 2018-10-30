@@ -28,7 +28,7 @@ class NameProviderTest extends KernelTestCase
     {
         $maleNames = $this->fileCharacterNameProvider->allForGender('male');
 
-        $this->assertCount(20, $maleNames);
+        $this->assertCount(19, $maleNames);
         $this->assertContainsOnlyInstancesOf(CharacterName::class, $maleNames);
         $this->assertEquals('Scrootchy', current($maleNames));
     }
