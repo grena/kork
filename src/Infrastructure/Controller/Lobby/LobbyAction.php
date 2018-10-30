@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller\Lobby;
 
-use App\Domain\Repository\CharacterRepositoryInterface;
+use App\Domain\Query\Character\CharacterDetails;
+use App\Domain\Query\Character\FindCharactersDetailsByGameInterface;
 use App\Domain\Repository\GameRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +18,15 @@ class LobbyAction extends Controller
     /** @var GameRepositoryInterface */
     private $gameRepository;
 
-    /** @var CharacterRepositoryInterface */
-    private $characterRepository;
+    /** @var FindCharactersDetailsByGameInterface */
+    private $charactersDetailsByGame;
 
     public function __construct(
         GameRepositoryInterface $gameRepository,
-        CharacterRepositoryInterface $characterRepository
+        FindCharactersDetailsByGameInterface $charactersDetailsByGame
     ) {
         $this->gameRepository = $gameRepository;
-        $this->characterRepository = $characterRepository;
+        $this->charactersDetailsByGame = $charactersDetailsByGame;
     }
 
     public function handle(): Response
@@ -40,7 +41,10 @@ class LobbyAction extends Controller
                 // REDIRECT TO PLAY
             }
 
-            $characters = $this->characterRepository->findAllByGame($currentGame->getId());
+            $characters = $this->charactersDetailsByGame->withIdentifier($currentGame->getId());
+            $characters = array_map(function (CharacterDetails $character) {
+                return $character->normalize();
+            }, $characters);
 
             return $this->render('lobby_in.html.twig', [
                 'characters' => $characters,
