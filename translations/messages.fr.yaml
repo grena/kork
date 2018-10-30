@@ -2,5 +2,8 @@ kork:
     global:
         logout: Se déconnecter
     lobby:
+        hangar_title: Phase d'embarquement
         join_random_game: Rejoindre une partie
-        joing_game_link: Envie de voyager avec vos traîtres d'amis ? Envoyez leur ce lien pour les inviter dans l'équipage, qui sait...
+        join_game_link: Envie de voyager avec vos traîtres d'amis ? Envoyez leur ce lien pour les inviter dans l'équipage, qui sait...
+        briefing: Après avoir lâchement zigouillé le Capitaine Kork (2e plus haute autorité du Grand Consortium au passage), vous et le reste de l'équipage de pirate de l'espace rejoignez en hâte le hangar de la planète Calbar afin de monter à bord de votre épa.. vaisseau de fortune. Il faut fuir le système galactique !
+        played_by: joué par

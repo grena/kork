@@ -10,3 +10,4 @@ services:
   App\Domain\Query\Game\GameExistsInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryGameExists'
   App\Domain\Query\Game\IsGameWaitingForPlayerInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryIsGameWaitingForPlayer'
   App\Domain\Query\Character\CountCharactersByGameInterface: '@App\Infrastructure\Persistence\InMemory\Character\InMemoryCountCharactersByGame'
+  App\Domain\Query\Character\FindCharactersDetailsByGameInterface: '@App\Infrastructure\Persistence\InMemory\Character\InMemoryFindCharactersDetailsByGame'

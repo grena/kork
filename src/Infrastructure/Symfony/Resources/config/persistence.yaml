@@ -10,3 +10,4 @@ services:
   App\Domain\Query\Game\GameExistsInterface: '@App\Infrastructure\Persistence\Sql\Game\SqlGameExists'
   App\Domain\Query\Game\IsGameWaitingForPlayerInterface: '@App\Infrastructure\Persistence\Sql\Game\SqlIsGameWaitingForPlayer'
   App\Domain\Query\Character\CountCharactersByGameInterface: '@App\Infrastructure\Persistence\Sql\Character\SqlCountCharactersByGame'
+  App\Domain\Query\Character\FindCharactersDetailsByGameInterface: '@App\Infrastructure\Persistence\Sql\Character\SqlFindCharactersDetailsByGame'

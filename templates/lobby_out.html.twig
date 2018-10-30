@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="block">
-        <p class="small">{{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
+    <p class="small" style="text-align: right; margin: 5px;">{{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
 
-        <a href="{{ url('join_random_game') }}" class="btn btn-inline">{{ 'kork.lobby.join_random_game'|trans }}</a>
+    <div class="block" style="text-align: center; padding: 40px 0;">
+        <a href="{{ url('join_random_game') }}" class="btn btn-big btn-inline">{{ 'kork.lobby.join_random_game'|trans }}</a>
     </div>
 {% endblock body %}
