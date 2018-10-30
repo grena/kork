@@ -1,21 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="block">
-        <p class="small">Salut {{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
+    <p class="small" style="text-align: right; margin: 5px;">{{ app.user.username }} - <a href="{{ path('logout') }}">{{ 'kork.global.logout'|trans }}</a></p>
 
-        <p class="text-center">
-            <span>{{ 'kork.lobby.joing_game_link'|trans }}</span>
-            <br>
-            <input style="display: block; width: 100%; margin-top: 10px;" type="text" value="{{ url('join_game', {'gameId': game.id}) }}" readonly>
-        </p>
+    <div class="block lobby">
+        <div class="header-img hangar-crew">
+            <div class="title">{{ 'kork.lobby.hangar_title'|trans }}</div>
+        </div>
 
-        {% for character in characters %}
-            <div style="text-align: center;">
-                <img src="{{ character.picture }}" alt=""> <br>
-                <span>{{ character.name }}</span>
-            </div>
-        {% endfor %}
+        <div class="briefing">
+            {{ 'kork.lobby.briefing'|trans }}
+        </div>
 
+        <div class="characters">
+            {% set count = 0 %}
+            {% for character in characters %}
+                <div class="character {% if character.player_id == app.user.id %}current{% endif %}">
+                    <img class="picture" src="{{ character.picture }}" alt="Picture">
+                    <div>
+                        <span class="name">{{ character.name }}</span>
+                        <span class="player">{{ 'kork.lobby.played_by'|trans }} {{ character.player_username }}</span>
+                    </div>
+                </div>
+                {% set count = count + 1 %}
+            {% endfor %}
+
+            {% for i in 1..(5 - count) %}
+                <div class="character placeholder">
+                    <img class="picture" src="img/picture_placeholder.png" alt="Picture">
+                    <div>
+                        <span class="name"></span>
+                        <span class="player"></span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if count < 5 %}
+        <div style="padding: 10px; border-top: 1px solid #223f51;">
+            <span>{{ 'kork.lobby.join_game_link'|trans }}</span>
+            <input style="display: block; width: 100%; margin-top: 5px;" type="text" value="{{ url('join_game', {'gameId': game.id}) }}" readonly>
+        </div>
+        {% endif %}
     </div>
 {% endblock body %}

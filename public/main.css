@@ -3,8 +3,12 @@
 *::after {
   box-sizing: border-box;
 }
+@font-face {
+  font-family: Titillium;
+  src: url('fonts/Titillium-Regular.otf') format('opentype');
+}
 html {
-  font-family: 'Electrolize', sans-serif;
+  font-family: 'Titillium', 'Electrolize', sans-serif;
   background: url('img/dotted.png');
   color: #287093;
 }
@@ -20,7 +24,6 @@ html {
   text-align: center;
 }
 .btn {
-  background-color: rgba(49, 55, 63, 0.3);
   border: 1px solid #223f51;
   color: #ffffff;
   cursor: pointer;
@@ -28,9 +31,7 @@ html {
   font-size: 14px;
   height: 30px;
   line-height: 30px;
-  margin-bottom: 0px;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin: 5px;
   padding: 0 10px;
   text-align: center;
   text-decoration: none;
@@ -38,12 +39,17 @@ html {
   text-decoration-style: solid;
   transition-duration: 0.2s;
   transition-property: color;
-  margin-top: 5px;
   text-transform: uppercase;
-  background: linear-gradient(45deg, #353446, #2d3c41);
+  background: linear-gradient(135deg, #353446, #2d3c41);
 }
 .btn.btn-inline {
   display: inline-block;
+}
+.btn.btn-big {
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 30px;
 }
 .btn:hover {
   border: 1px solid #225e70;
@@ -73,8 +79,7 @@ a {
 }
 .block {
   background: rgba(0, 0, 0, 0.3);
-  margin: 15px auto;
-  padding: 25px;
+  margin: 0 auto;
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.75);
@@ -82,6 +87,87 @@ a {
 }
 .block.login {
   width: 500px;
+  margin-top: 25px;
+}
+.lobby .briefing {
+  font-size: 18px;
+  padding: 30px;
+  margin: 10px;
+  line-height: 28px;
+  font-style: italic;
+  background: linear-gradient(131deg, #35344670, #2d3c4100);
+}
+.lobby .character {
+  display: flex;
+  align-items: center;
+  min-width: 250px;
+  margin: 10px;
+}
+.lobby .character .picture {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #223f51;
+  margin-right: 10px;
+}
+.lobby .character .name {
+  color: #fff;
+  text-transform: uppercase;
+  display: block;
+}
+.lobby .character .player {
+  color: #2c799f;
+  font-size: 12px;
+  line-height: 16.8px;
+  display: block;
+}
+.lobby .character.current .picture {
+  border: 1px solid #00e7ff;
+  box-shadow: 0 0 6px #09F;
+}
+.lobby .character.placeholder .name {
+  background: #ffffff29;
+  width: 120px;
+  height: 20px;
+  margin-bottom: 8px;
+}
+.lobby .character.placeholder .player {
+  background: #2c799f2e;
+  width: 60px;
+  height: 12px;
+}
+.lobby .characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px 0;
+}
+.lobby .header-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 898px;
+  overflow: hidden;
+  height: 150px;
+  border-bottom: 1px solid #223f51;
+}
+.lobby .header-img .title {
+  text-align: center;
+  font-size: 24px;
+  color: #00e7ff;
+  font-weight: normal;
+  text-transform: uppercase;
+  height: 56px;
+  line-height: 60px;
+  position: relative;
+  text-shadow: 0 0 20px #09F;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  background: #00000073;
+}
+.lobby .header-img.hangar-crew {
+  background: url('img/hangar_crew.png') no-repeat top left;
 }
 input[type="text"] {
   size: 40px;
@@ -99,4 +185,7 @@ input[type="text"]:focus {
   border-left-color: #00b7ca;
   color: #42c6e7;
   box-shadow: inset 0 0 20px rgba(0, 112, 200, 0.3);
+}
+.p-25 {
+  padding: 25px;
 }
