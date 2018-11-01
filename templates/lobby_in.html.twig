@@ -25,15 +25,17 @@
                 {% set count = count + 1 %}
             {% endfor %}
 
-            {% for i in 1..(5 - count) %}
-                <div class="character placeholder">
-                    <img class="picture" src="img/picture_placeholder.png" alt="Picture">
-                    <div>
-                        <span class="name"></span>
-                        <span class="player"></span>
+            {% if count < 5 %}
+                {% for i in 1..(5 - count) %}
+                    <div class="character placeholder">
+                        <img class="picture" src="img/picture_placeholder.png" alt="Picture">
+                        <div>
+                            <span class="name"></span>
+                            <span class="player"></span>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
         </div>
 
         {% if count < 5 %}
