@@ -26,7 +26,7 @@
             {% endfor %}
 
             {% if count < 5 %}
-                {% for i in 1..(5 - count) %}
+                {% for i in 1..(player_count_needed - count) %}
                     <div class="character placeholder">
                         <img class="picture" src="img/picture_placeholder.png" alt="Picture">
                         <div>
@@ -38,7 +38,7 @@
             {% endif %}
         </div>
 
-        {% if count < 5 %}
+        {% if count < player_count_needed %}
         <div style="padding: 10px; border-top: 1px solid #223f51;">
             <span>{{ 'kork.lobby.join_game_link'|trans }}</span>
             <input style="display: block; width: 100%; margin-top: 5px;" type="text" value="{{ url('join_game', {'gameId': game.id}) }}" readonly>

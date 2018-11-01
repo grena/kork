@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller\Lobby;
 
+use App\Domain\Model\Game\Game;
 use App\Domain\Query\Character\CharacterDetails;
 use App\Domain\Query\Character\FindCharactersDetailsByGameInterface;
 use App\Domain\Repository\GameRepositoryInterface;
@@ -48,7 +49,8 @@ class LobbyAction extends Controller
 
             return $this->render('lobby_in.html.twig', [
                 'characters' => $characters,
-                'game' => $currentGame
+                'game' => $currentGame,
+                'player_count_needed' => Game::NUMBER_OF_PLAYERS_REQUIRED_TO_START
             ]);
         }
     }
