@@ -56,6 +56,15 @@ class Game
         return $this->finished->isYes();
     }
 
+    public function start()
+    {
+        if ($this->isStarted()) {
+            throw new \LogicException('Cannot start a game already started');
+        }
+
+        $this->started = GameStarted::fromBoolean(true);
+    }
+
     public static function create(
         GameIdentifier $identifier,
         GameCreatedAt $createdAt,
