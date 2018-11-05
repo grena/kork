@@ -57,6 +57,39 @@ SQL;
         }
     }
 
+    public function update(Game $game): void
+    {
+        $update = <<<SQL
+        UPDATE 
+            `game`
+        SET
+            created_at = :created_at, 
+            started = :started, 
+            finished = :finished
+        WHERE 
+            id = :id
+SQL;
+        $affectedRows = $this->sqlConnection->executeUpdate(
+            $update,
+            [
+                'id' => (string) $game->getId(),
+                'created_at' => (string) $game->getCreatedAt()->normalize(),
+                'started' => $game->isStarted(),
+                'finished' => $game->isFinished(),
+            ],
+            [
+                'started' => Type::getType(Type::BOOLEAN),
+                'finished' => Type::getType(Type::BOOLEAN),
+            ]
+        );
+
+        if ($affectedRows > 1) {
+            throw new \RuntimeException(
+                sprintf('Expected to update one game, but %d rows were affected', $affectedRows)
+            );
+        }
+    }
+
     public function getByIdentifier(GameIdentifier $identifier): Game
     {
         $fetch = <<<SQL

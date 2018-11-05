@@ -14,6 +14,8 @@ interface GameRepositoryInterface
 {
     public function add(Game $game): void;
 
+    public function update(Game $game): void;
+
     public function getByIdentifier(GameIdentifier $identifier): Game;
 
     public function findActiveForPlayer(string $playerIdentifier): ?Game;

@@ -71,4 +71,20 @@ class SqlGameRepositoryTest extends SqlIntegrationTestCase
         $foundGame = $this->gameRepository->findActiveForPlayer($playerIdentifier);
         $this->assertNull($foundGame);
     }
+
+    /**
+     * @test
+     */
+    public function it_updates_a_game()
+    {
+        $gameIdentifier = GameIdentifier::fromString('game_waiting_for_players');
+        $game = $this->gameRepository->getByIdentifier($gameIdentifier);
+
+        $game->start();
+        $this->gameRepository->update($game);
+
+        $gameFound = $this->gameRepository->getByIdentifier($gameIdentifier);
+
+        $this->assertEquals($game, $gameFound);
+    }
 }

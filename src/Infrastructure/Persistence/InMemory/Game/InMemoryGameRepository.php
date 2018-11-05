@@ -33,6 +33,11 @@ class InMemoryGameRepository implements GameRepositoryInterface
         $this->games[(string) $game->getId()] = $game;
     }
 
+    public function update(Game $game): void
+    {
+        $this->games[(string) $game->getId()] = $game;
+    }
+
     public function getByIdentifier(GameIdentifier $identifier): Game
     {
         foreach ($this->games as $game) {
