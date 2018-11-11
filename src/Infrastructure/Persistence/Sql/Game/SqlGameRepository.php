@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Persistence\Sql\Game;
 
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Repository\GameNotFoundException;
 use App\Domain\Repository\GameRepositoryInterface;
 use Doctrine\DBAL\Connection;
@@ -32,18 +29,13 @@ class SqlGameRepository implements GameRepositoryInterface
     {
         $insert = <<<SQL
         INSERT INTO `game`
-            (id, created_at, started, finished)
+            (id, created_at, started, finished, travel_start_at, travel_stop_at)
         VALUES 
-            (:id, :created_at, :started, :finished);
+            (:id, :created_at, :started, :finished, :travel_start_at, :travel_stop_at);
 SQL;
         $affectedRows = $this->sqlConnection->executeUpdate(
             $insert,
-            [
-                'id' => (string) $game->getId(),
-                'created_at' => (string) $game->getCreatedAt()->normalize(),
-                'started' => $game->isStarted(),
-                'finished' => $game->isFinished(),
-            ],
+            $game->normalize(),
             [
                 'started' => Type::getType(Type::BOOLEAN),
                 'finished' => Type::getType(Type::BOOLEAN),
@@ -65,17 +57,21 @@ SQL;
         SET
             created_at = :created_at, 
             started = :started, 
-            finished = :finished
+            finished = :finished,
+            travel_start_at = :travel_start_at,
+            travel_stop_at = :travel_stop_at
         WHERE 
             id = :id
 SQL;
         $affectedRows = $this->sqlConnection->executeUpdate(
             $update,
             [
-                'id' => (string) $game->getId(),
-                'created_at' => (string) $game->getCreatedAt()->normalize(),
+                'id' => $game->getId()->normalize(),
+                'created_at' => $game->getCreatedAt()->normalize(),
                 'started' => $game->isStarted(),
                 'finished' => $game->isFinished(),
+                'travel_start_at' => $game->getTravelStartAt()->normalize(),
+                'travel_stop_at' => $game->getTravelStopAt()->normalize()
             ],
             [
                 'started' => Type::getType(Type::BOOLEAN),
@@ -143,14 +139,9 @@ SQL;
     private function hydrateGame($result): Game
     {
         $platform = $this->sqlConnection->getDatabasePlatform();
-        $isStarted = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['started'], $platform);
-        $isFinished = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['finished'], $platform);
+        $result['started'] = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['started'], $platform);
+        $result['finished'] = Type::getType(Type::BOOLEAN)->convertToPHPValue($result['finished'], $platform);
 
-        return Game::create(
-            GameIdentifier::fromString($result['id']),
-            GameCreatedAt::fromString($result['created_at']),
-            GameStarted::fromBoolean($isStarted),
-            GameFinished::fromBoolean($isFinished)
-        );
+        return Game::fromNormalized($result);
     }
 }

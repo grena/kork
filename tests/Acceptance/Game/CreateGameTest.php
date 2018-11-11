@@ -11,10 +11,7 @@ use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
 use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Model\Player;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use App\Domain\Repository\GameNotFoundException;
@@ -93,12 +90,8 @@ class CreateGameTest extends FakeIntegrationTestCase
      */
     public function a_player_cannot_create_a_game_if_he_already_has_an_active_character()
     {
-        $game = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::now(),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $game = Game::createNew(GameIdentifier::fromString('game_running'));
+        $game->start();
         $this->gameRepository->add($game);
 
         $player = new Player();

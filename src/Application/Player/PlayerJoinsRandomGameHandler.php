@@ -47,12 +47,7 @@ class PlayerJoinsRandomGameHandler
         $availableGames = ($this->findAllGamesWaitingForPlayer)();
 
         if (empty($availableGames)) {
-            $game = Game::create(
-                $this->gameRepository->nextIdentifier(),
-                GameCreatedAt::now(),
-                GameStarted::fromBoolean(false),
-                GameFinished::fromBoolean(false)
-            );
+            $game = Game::createNew($this->gameRepository->nextIdentifier());
             $this->gameRepository->add($game);
 
             $gameIdentifier = $game->getId();

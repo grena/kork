@@ -51,6 +51,8 @@ class SchemaCreator
         $gameTable->addColumn('created_at', Type::DATETIME_IMMUTABLE, ['notnull' => true]);
         $gameTable->addColumn('started', Type::BOOLEAN, ['notnull' => true, 'default' => false]);
         $gameTable->addColumn('finished', Type::BOOLEAN, ['notnull' => true, 'default' => false]);
+        $gameTable->addColumn('travel_start_at', Type::DATETIME, ['notnull' => false, 'default' => null]);
+        $gameTable->addColumn('travel_stop_at', Type::DATETIME, ['notnull' => false, 'default' => null]);
 
         $gameTable->setPrimaryKey(['id']);
 
