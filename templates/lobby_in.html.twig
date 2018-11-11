@@ -9,7 +9,7 @@
         </div>
 
         <div class="briefing">
-            {{ 'kork.lobby.briefing'|trans }}
+            {{ 'kork.lobby.briefing.start'|trans|nl2br }}
         </div>
 
         <div class="characters">
@@ -43,6 +43,66 @@
             <span>{{ 'kork.lobby.join_game_link'|trans }}</span>
             <input style="display: block; width: 100%; margin-top: 5px;" type="text" value="{{ url('join_game', {'gameId': game.id}) }}" readonly>
         </div>
+        {% else %}
+        <div class="briefing">
+            {{ 'kork.lobby.briefing.end'|trans|nl2br }}
+        </div>
+
+        <div style="width: 400px; margin: 25px auto; padding: 25px;">
+            <div class="progress" id="timer">
+                <div class="progress-title">{{ 'kork.game.remaining_travel_time'|trans }}</div>
+                <div class="progress-time">${hours} : ${minutes} : ${seconds}</div>
+                <div class="progress-bar">
+                    <span class="bar" v-bind:style="{ width: progress + '%'}"></span>
+                    <span class="cursor" v-bind:style="{ width: progress + '%'}"></span>
+                </div>
+            </div>
+        </div>
         {% endif %}
     </div>
 {% endblock body %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/fr.js"></script>
+    <script>
+        moment().format('LTS');
+
+        const app = new Vue({
+            el: '#timer',
+            delimiters: ['${', '}'],
+            data: {
+                travelStart: moment('{{ game.travelStartAt.normalize }}', 'YYYY-MM-dd HH:mm:ss'),
+                travelStop: moment('{{ game.travelStopAt.normalize }}', 'YYYY-MM-dd HH:mm:ss'),
+                hours: '00',
+                minutes: '00',
+                seconds: '00',
+                progress: '0',
+                now: moment().format('YYYY-MM-dd hh:mm:ss')
+            },
+            created() {
+                setInterval(() => {
+                    this.now = moment().format('YYYY-MM-DD HH:mm:ss');
+                }, 1000);
+            },
+            watch: {
+                now: function () {
+                    const nowTime = moment(this.now, 'YYYY-MM-dd HH:mm:ss');
+                    const remainingDuration = moment.duration(this.travelStop.diff(nowTime));
+                    const totalDuration = moment.duration(this.travelStop.diff(this.travelStart));
+
+                    this.hours = String(remainingDuration.hours()).padStart(2, '0');
+                    this.hours = this.hours < 0 ? '00' : this.hours;
+                    this.minutes = String(remainingDuration.minutes()).padStart(2, '0');
+                    this.minutes = this.minutes < 0 ? '00' : this.minutes;
+                    this.seconds = String(remainingDuration.seconds()).padStart(2, '0');
+                    this.seconds = this.seconds < 0 ? '00' : this.seconds;
+
+                    this.progress = 100 - (100 * remainingDuration.asSeconds()) / totalDuration.asSeconds();
+                    this.progress = this.progress > 100 ? 100 : this.progress;
+                },
+            }
+        })
+    </script>
+{% endblock %}
