@@ -71,7 +71,7 @@ class FOSUBUserProvider extends BaseClass
             $user->$setter_token($response->getAccessToken());
             $user->setUsername($response->getNickname());
             $user->setEnabled(true);
-//            $user->setDateRegistered(new \DateTime());
+            $user->setDateCreated(new \DateTime());
 
             $this->userManager->updateUser($user);
 
