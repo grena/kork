@@ -9,10 +9,7 @@ use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
 use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Model\Player;
 use App\Infrastructure\Persistence\Sql\Character\SqlCharacterRepository;
 use App\Infrastructure\Persistence\Sql\Game\SqlGameRepository;
@@ -82,28 +79,22 @@ class SqlIntegrationTestCase extends KernelTestCase
         $robert->setEnabled(true);
         $this->playerRepository->add($robert);
 
-        $gameWaiting = Game::create(
-            GameIdentifier::fromString('game_waiting_for_players'),
-            GameCreatedAt::now(),
-            GameStarted::fromBoolean(false),
-            GameFinished::fromBoolean(false)
-        );
+        $gameWaiting = Game::createNew(GameIdentifier::fromString('game_waiting_for_players'));
         $this->gameRepository->add($gameWaiting);
 
-        $gameRunning = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::fromString('2018-10-01 19:00:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $gameRunning = Game::fromNormalized([
+            'id' => 'game_running',
+            'created_at' => '2018-10-01 19:00:00',
+            'started' => true,
+            'finished' => false,
+            'travel_start_at' => null,
+            'travel_stop_at' => null,
+        ]);
         $this->gameRepository->add($gameRunning);
 
-        $gameFinished = Game::create(
-            GameIdentifier::fromString('game_finished'),
-            GameCreatedAt::now(),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(true)
-        );
+        $gameFinished = Game::createNew(GameIdentifier::fromString('game_finished'));
+        $gameFinished->start();
+        $gameFinished->finish();
         $this->gameRepository->add($gameFinished);
 
         $grenaCharacterRunning = Character::create(

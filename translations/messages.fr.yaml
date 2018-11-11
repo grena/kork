@@ -5,5 +5,17 @@ kork:
         hangar_title: Phase d'embarquement
         join_random_game: Rejoindre une partie
         join_game_link: Envie de voyager avec vos traîtres d'amis ? Envoyez leur ce lien pour les inviter dans l'équipage, qui sait...
-        briefing: Après avoir lâchement zigouillé le Capitaine Kork (2e plus haute autorité du Grand Consortium au passage), vous et le reste de l'équipage de pirate de l'espace rejoignez en hâte le hangar de la planète Calbar afin de monter à bord de votre épa.. vaisseau de fortune. Il faut fuir le système galactique !
+        briefing:
+            start: |
+                Après avoir lâchement zigouillé le Capitaine Kork (2e plus haute autorité du Grand Empire au passage), vous rejoignez en hâte l'immense hangar de la Station.
+
+                Entre les Croiseurs flambant neuf et les vaisseaux cargo imposants de l'Empire se dresse votre épav... votre modeste vaisseau. Vous vous y réfugiez comme un rat, en attendant le reste de votre équipage...
+            end: |
+                ... le dernier membre de votre équipage arrive essouflé dans le vaisseau. "ON SE BARRE, ET VITE !" lâche-t-il en se jetant dans le siège de pilotage.
+
+                Le moteur vrombit, des centaines de voyants s'allument (ah tiens oui, même le petit rouge là). Vous vous accrochez à ce que vous pouvez tandis que votre vaisseau commence à se rapprocher de la sortie.
+
+                Sous le feu des hommes de Kork et dans une accélération à vous couper la trogne, vous parvenez à fuir la Station...
         played_by: joué par
+    game:
+        remaining_travel_time: Temps de voyage restant

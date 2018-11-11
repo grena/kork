@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Persistence\Sql\Game;
 
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Repository\GameNotFoundException;
 use App\Tests\Integration\SqlIntegrationTestCase;
 
@@ -19,13 +16,16 @@ class SqlGameRepositoryTest extends SqlIntegrationTestCase
      */
     public function it_adds_a_game_an_returns_it()
     {
-        $game = Game::create(
-            GameIdentifier::fromString('12345'),
-            GameCreatedAt::fromString('2018-02-22 18:55:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $normalizedGame = [
+            'id' => '12345',
+            'created_at' => '2018-02-22 18:55:00',
+            'started' => true,
+            'finished' => false,
+            'travel_start_at' => null,
+            'travel_stop_at' => null,
+        ];
 
+        $game = Game::fromNormalized($normalizedGame);
         $this->gameRepository->add($game);
 
         $gameFound = $this->gameRepository->getByIdentifier(GameIdentifier::fromString('12345'));
@@ -50,12 +50,14 @@ class SqlGameRepositoryTest extends SqlIntegrationTestCase
     public function it_finds_the_active_game_the_player_has_an_character_in()
     {
         $playerIdentifier = 'grena-123';
-        $gameRunning = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::fromString('2018-10-01 19:00:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $gameRunning = Game::fromNormalized([
+            'id' => 'game_running',
+            'created_at' => '2018-10-01 19:00:00',
+            'started' => true,
+            'finished' => false,
+            'travel_start_at' => null,
+            'travel_stop_at' => null,
+        ]);
 
         $foundGame = $this->gameRepository->findActiveForPlayer($playerIdentifier);
         $this->assertEquals($gameRunning, $foundGame);
@@ -70,5 +72,21 @@ class SqlGameRepositoryTest extends SqlIntegrationTestCase
 
         $foundGame = $this->gameRepository->findActiveForPlayer($playerIdentifier);
         $this->assertNull($foundGame);
+    }
+
+    /**
+     * @test
+     */
+    public function it_updates_a_game()
+    {
+        $gameIdentifier = GameIdentifier::fromString('game_waiting_for_players');
+        $game = $this->gameRepository->getByIdentifier($gameIdentifier);
+
+        $game->start();
+        $this->gameRepository->update($game);
+
+        $gameFound = $this->gameRepository->getByIdentifier($gameIdentifier);
+
+        $this->assertEquals($game, $gameFound);
     }
 }

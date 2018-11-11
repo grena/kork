@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Validation\Game;
 
 use App\Application\Player\PlayerJoinsGameCommand;
+use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Query\Character\CountCharactersByGameInterface;
 use Symfony\Component\Validator\Constraint;
@@ -61,7 +62,7 @@ class GameHasRoomForNewPlayerValidator extends ConstraintValidator
         $gameIdentifier = GameIdentifier::fromString($command->gameId);
         $count = $this->countCharactersByGame->withIdentifier($gameIdentifier);
 
-        if ($count >= 5) {
+        if ($count >= Game::NUMBER_OF_PLAYERS_REQUIRED_TO_START) {
             $this->context
                 ->buildViolation(GameHasRoomForNewPlayer::ERROR_MESSAGE)
                 ->addViolation();

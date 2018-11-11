@@ -11,10 +11,7 @@ use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
 use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Model\Player;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use App\Domain\Repository\GameNotFoundException;
@@ -63,26 +60,11 @@ class PlayerJoinsRandomGameTest extends FakeIntegrationTestCase
         $player->setEnabled(true);
         $this->playerRepository->add($player);
 
-        $unavailableGame = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::fromString('2018-01-01 15:00:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $unavailableGame = Game::createNew(GameIdentifier::fromString('game_running'));
+        $unavailableGame->start();
 
-        $availableGame = Game::create(
-            GameIdentifier::fromString('game_waiting_for_player'),
-            GameCreatedAt::fromString('2018-10-24 15:00:00'),
-            GameStarted::fromBoolean(false),
-            GameFinished::fromBoolean(false)
-        );
-
-        $availableButFullGame = Game::create(
-            GameIdentifier::fromString('game_waiting_for_player_full'),
-            GameCreatedAt::fromString('2018-10-24 09:00:00'),
-            GameStarted::fromBoolean(false),
-            GameFinished::fromBoolean(false)
-        );
+        $availableGame = Game::createNew(GameIdentifier::fromString('game_waiting_for_player'));
+        $availableButFullGame = Game::createNew(GameIdentifier::fromString('game_waiting_for_player_full'));
 
         $this->gameRepository->add($unavailableGame);
         $this->gameRepository->add($availableGame);
@@ -136,19 +118,10 @@ class PlayerJoinsRandomGameTest extends FakeIntegrationTestCase
         $player->setEnabled(true);
         $this->playerRepository->add($player);
 
-        $unavailableGame = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::fromString('2018-01-01 15:00:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $unavailableGame = Game::createNew(GameIdentifier::fromString('game_running'));
+        $unavailableGame->start();
 
-        $availableButFullGame = Game::create(
-            GameIdentifier::fromString('game_waiting_for_player_full'),
-            GameCreatedAt::fromString('2018-10-24 09:00:00'),
-            GameStarted::fromBoolean(false),
-            GameFinished::fromBoolean(false)
-        );
+        $availableButFullGame = Game::createNew(GameIdentifier::fromString('game_waiting_for_player_full'));
 
         $this->gameRepository->add($unavailableGame);
         $this->gameRepository->add($availableButFullGame);
@@ -201,12 +174,8 @@ class PlayerJoinsRandomGameTest extends FakeIntegrationTestCase
         $player->setEnabled(true);
         $this->playerRepository->add($player);
 
-        $runningGame = Game::create(
-            GameIdentifier::fromString('game_running'),
-            GameCreatedAt::fromString('2018-01-01 15:00:00'),
-            GameStarted::fromBoolean(true),
-            GameFinished::fromBoolean(false)
-        );
+        $runningGame = Game::createNew(GameIdentifier::fromString('game_running'));
+        $runningGame->start();
         $this->gameRepository->add($runningGame);
 
         $character = Character::create(
