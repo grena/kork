@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace spec\App\Infrastructure\Validation\Game;
 
-use App\Application\Game\CreateGameCommand;
+use App\Application\Player\PlayerJoinsRandomGameCommand;
 use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
 use App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter;
 use PhpSpec\ObjectBehavior;
@@ -27,7 +27,7 @@ class PlayerHasNoActiveCharacterValidatorSpec extends ObjectBehavior
     function it_adds_a_violation_if_player_already_has_an_active_character(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
         ExecutionContextInterface $context,
-        CreateGameCommand $command,
+        PlayerJoinsRandomGameCommand $command,
         PlayerHasNoActiveCharacter $constraint,
         ConstraintViolationBuilderInterface $violationBuilder
     ) {
@@ -43,7 +43,7 @@ class PlayerHasNoActiveCharacterValidatorSpec extends ObjectBehavior
     function it_does_nothing_if_player_does_not_have_an_active_character(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
         ExecutionContextInterface $context,
-        CreateGameCommand $command,
+        PlayerJoinsRandomGameCommand $command,
         PlayerHasNoActiveCharacter $constraint
     ) {
         $command->playerId = '12345';
@@ -55,7 +55,7 @@ class PlayerHasNoActiveCharacterValidatorSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_it_is_not_the_good_constraint_type(
-        CreateGameCommand $command,
+        PlayerJoinsRandomGameCommand $command,
         Constraint $constraint
     ) {
         $this->shouldThrow(UnexpectedTypeException::class)

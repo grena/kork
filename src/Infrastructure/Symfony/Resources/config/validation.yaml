@@ -1,7 +1,3 @@
-App\Application\Game\CreateGameCommand:
-    constraints:
-        - App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter: ~
-
 App\Application\Player\PlayerJoinsRandomGameCommand:
     constraints:
         - App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter: ~
