@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Game;
+namespace App\Tests\Integration\Persistence\Common\Game;
 
 use App\Domain\Model\Game\GameIdentifier;
-use App\Infrastructure\Persistence\Sql\Game\SqlGameExists;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Domain\Query\Game\IsGameWaitingForPlayerInterface;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlIsGameWaitingForPlayerTest extends SqlIntegrationTestCase
+class IsGameWaitingForPlayerTest extends IntegrationTestCase
 {
-    /** @var SqlGameExists */
+    /** @var IsGameWaitingForPlayerInterface */
     private $query;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->query = self::$container->get('App\Infrastructure\Persistence\Sql\Game\SqlIsGameWaitingForPlayer');
+        $this->query = self::$container->get('App\Domain\Query\Game\IsGameWaitingForPlayerInterface');
     }
 
     /**

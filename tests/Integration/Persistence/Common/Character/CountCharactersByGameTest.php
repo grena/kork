@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Character;
+namespace App\Tests\Integration\Persistence\Common\Character;
 
 use App\Domain\Model\Game\GameIdentifier;
-use App\Infrastructure\Persistence\Sql\Character\SqlCountCharactersByGame;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Domain\Query\Character\CountCharactersByGameInterface;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlCountCharactersByGameTest extends SqlIntegrationTestCase
+class CountCharactersByGameTest extends IntegrationTestCase
 {
-    /** @var SqlCountCharactersByGame */
+    /** @var CountCharactersByGameInterface */
     private $query;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->query = self::$container->get('App\Infrastructure\Persistence\Sql\Character\SqlCountCharactersByGame');
+        $this->query = self::$container->get('App\Domain\Query\Character\CountCharactersByGameInterface');
     }
 
     /**

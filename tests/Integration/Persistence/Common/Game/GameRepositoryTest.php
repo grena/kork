@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Game;
+namespace App\Tests\Integration\Persistence\Common\Game;
 
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Repository\GameNotFoundException;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlGameRepositoryTest extends SqlIntegrationTestCase
+class GameRepositoryTest extends IntegrationTestCase
 {
     /**
      * @test

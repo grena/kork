@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Character;
+namespace App\Tests\Integration\Persistence\Common\Character;
 
 use App\Domain\Model\Character\Character;
 use App\Domain\Model\Character\CharacterIdentifier;
 use App\Domain\Model\Character\CharacterName;
 use App\Domain\Model\Character\CharacterPicture;
 use App\Domain\Model\Game\GameIdentifier;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlCharacterRepositoryTest extends SqlIntegrationTestCase
+class CharacterRepositoryTest extends IntegrationTestCase
 {
     /**
      * @test

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Character;
+namespace App\Tests\Integration\Persistence\Common\Character;
 
 use App\Domain\Model\Game\GameIdentifier;
 use App\Domain\Query\Character\CharacterDetails;
-use App\Infrastructure\Persistence\Sql\Character\SqlFindCharactersDetailsByGame;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Domain\Query\Character\FindCharactersDetailsByGameInterface;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlFindCharactersDetailsByGameTest extends SqlIntegrationTestCase
+class FindCharactersDetailsByGameTest extends IntegrationTestCase
 {
-    /** @var SqlFindCharactersDetailsByGame */
+    /** @var FindCharactersDetailsByGameInterface */
     private $query;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->query = self::$container->get('App\Infrastructure\Persistence\Sql\Character\SqlFindCharactersDetailsByGame');
+        $this->query = self::$container->get('App\Domain\Query\Character\FindCharactersDetailsByGameInterface');
     }
 
     /**
