@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class PlayerShouldNotHaveActiveCharacter extends Constraint
+class PlayerHasNoActiveCharacter extends Constraint
 {
     public const ERROR_MESSAGE = 'You already have an active character in game';
 
