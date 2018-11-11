@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Player;
+namespace App\Tests\Integration\Persistence\Common\Player;
 
-use App\Infrastructure\Persistence\Sql\Player\SqlPlayerHasActiveCharacter;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlPlayerHasActiveCharacterTest extends SqlIntegrationTestCase
+class PlayerHasActiveCharacterTest extends IntegrationTestCase
 {
-    /** @var SqlPlayerHasActiveCharacter */
+    /** @var PlayerHasActiveCharacterInterface */
     private $playerHasActiveCharacter;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->playerHasActiveCharacter = self::$container->get('App\Infrastructure\Persistence\Sql\Player\SqlPlayerHasActiveCharacter');
+        $this->playerHasActiveCharacter = self::$container->get('App\Domain\Query\Player\PlayerHasActiveCharacterInterface');
     }
 
     /**

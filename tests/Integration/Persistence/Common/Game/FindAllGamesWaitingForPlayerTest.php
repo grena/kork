@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Persistence\Sql\Game;
+namespace App\Tests\Integration\Persistence\Common\Game;
 
 use App\Domain\Model\Game\GameIdentifier;
-use App\Infrastructure\Persistence\Sql\Game\SqlFindAllGamesWaitingForPlayer;
-use App\Tests\Integration\SqlIntegrationTestCase;
+use App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface;
+use App\Tests\Integration\IntegrationTestCase;
 
-class SqlFindAllGamesWaitingForPlayerTest extends SqlIntegrationTestCase
+class FindAllGamesWaitingForPlayerTest extends IntegrationTestCase
 {
-    /** @var SqlFindAllGamesWaitingForPlayer */
+    /** @var FindAllGamesWaitingForPlayerInterface */
     private $query;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->query = self::$container->get('App\Infrastructure\Persistence\Sql\Game\SqlFindAllGamesWaitingForPlayer');
+        $this->query = self::$container->get('App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface');
     }
 
     /**
@@ -33,7 +33,7 @@ class SqlFindAllGamesWaitingForPlayerTest extends SqlIntegrationTestCase
         $this->assertContainsOnlyInstancesOf(GameIdentifier::class, $gamesFound);
         $this->assertEquals($expectedGames, $gamesFound);
 
-        $this->databaseHelper->resetDatabase();
+        $this->resetFixtures();
 
         $expectedGames = [];
         $gamesFound = ($this->query)();

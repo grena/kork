@@ -17,7 +17,7 @@ use App\Infrastructure\Persistence\Sql\Player\SqlPlayerRepository;
 use App\Tests\Integration\Persistence\Helper\DatabaseHelper;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class SqlIntegrationTestCase extends KernelTestCase
+class IntegrationTestCase extends KernelTestCase
 {
     /** @var SqlPlayerRepository */
     protected $playerRepository;
@@ -36,13 +36,37 @@ class SqlIntegrationTestCase extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
-        $this->playerRepository = self::$container->get('App\Infrastructure\Persistence\Sql\Player\SqlPlayerRepository');
-        $this->gameRepository = self::$container->get('App\Infrastructure\Persistence\Sql\Game\SqlGameRepository');
-        $this->characterRepository = self::$container->get('App\Infrastructure\Persistence\Sql\Character\SqlCharacterRepository');
+        $this->playerRepository = self::$container->get('App\Domain\Repository\PlayerRepositoryInterface');
+        $this->gameRepository = self::$container->get('App\Domain\Repository\GameRepositoryInterface');
+        $this->characterRepository = self::$container->get('App\Domain\Repository\CharacterRepositoryInterface');
 
-        $this->databaseHelper = new DatabaseHelper(self::$container->get('database_connection'));
-        $this->databaseHelper->resetDatabase();
+        $this->resetFixtures();
+        $this->loadFixtures();
+    }
 
+    protected function resetFixtures()
+    {
+        $kernelEnvironment = self::$kernel->getEnvironment();
+
+        switch ($kernelEnvironment) {
+            case 'test':
+                $this->databaseHelper = new DatabaseHelper(self::$container->get('database_connection'));
+                $this->databaseHelper->resetDatabase();
+                break;
+            case 'fake':
+                $this->characterRepository->reset();
+                $this->gameRepository->reset();
+                $this->playerRepository->reset();
+                break;
+            default:
+                throw new \Exception(
+                    sprintf('Environment "%s" is not supported for integration tests', $kernelEnvironment)
+                );
+        }
+    }
+
+    protected function loadFixtures()
+    {
         // TODO: Put in real fixtures manager
         $grena = new Player();
         $grena->setId('grena-123');

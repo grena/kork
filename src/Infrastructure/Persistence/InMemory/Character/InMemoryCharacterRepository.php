@@ -34,8 +34,15 @@ class InMemoryCharacterRepository implements CharacterRepositoryInterface
      */
     public function findAllByGame(GameIdentifier $gameIdentifier): array
     {
-        return array_filter($this->characters, function (Character $character) use ($gameIdentifier) {
+        $characters = array_filter($this->characters, function (Character $character) use ($gameIdentifier) {
             return $character->getGameIdentifier()->equals($gameIdentifier);
         });
+
+        return array_values($characters);
+    }
+
+    public function reset(): void
+    {
+        $this->characters = [];
     }
 }

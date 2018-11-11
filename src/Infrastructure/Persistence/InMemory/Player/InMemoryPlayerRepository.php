@@ -48,4 +48,9 @@ class InMemoryPlayerRepository implements PlayerRepositoryInterface
     {
         $this->players[$player->getId()] = $player;
     }
+
+    public function reset(): void
+    {
+        $this->players = [];
+    }
 }
