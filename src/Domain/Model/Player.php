@@ -35,6 +35,10 @@ class Player extends User
      */
     protected $github_access_token;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $dateCreated;
 
     public function getId()
     {
@@ -64,5 +68,10 @@ class Player extends User
     public function getGithubAccessToken(): ?string
     {
         return $this->github_access_token;
+    }
+
+    public function setDateCreated($dateCreated): void
+    {
+        $this->dateCreated = $dateCreated;
     }
 }
