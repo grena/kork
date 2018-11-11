@@ -7,9 +7,12 @@ namespace spec\App\Application\Event\Handler;
 use App\Domain\Event\Game\PlayerJoinedGameEvent;
 use App\Domain\Model\Game\Game;
 use App\Domain\Model\Game\GameIdentifier;
+use App\Domain\Model\Game\TravelStartAt;
+use App\Domain\Model\Game\TravelStopAt;
 use App\Domain\Query\Character\CountCharactersByGameInterface;
 use App\Domain\Repository\GameRepositoryInterface;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class StartGameHandlerSpec extends ObjectBehavior
 {
@@ -36,7 +39,11 @@ class StartGameHandlerSpec extends ObjectBehavior
         $charactersByGame->withIdentifier($gameIdentifier)->willReturn(Game::NUMBER_OF_PLAYERS_REQUIRED_TO_START);
 
         $gameRepository->getByIdentifier($gameIdentifier)->willReturn($game);
+
+        // We should start the game and set the travel date time
         $game->start()->shouldBeCalled();
+        $game->setTravelStartAt(Argument::type(TravelStartAt::class))->shouldBeCalled();
+        $game->setTravelStopAt(Argument::type(TravelStopAt::class))->shouldBeCalled();
         $gameRepository->update($game)->shouldBeCalled();
 
         $this->handle($event);

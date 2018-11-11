@@ -8,6 +8,8 @@ use App\Domain\Event\EventHandlerInterface;
 use App\Domain\Event\EventInterface;
 use App\Domain\Event\Game\PlayerJoinedGameEvent;
 use App\Domain\Model\Game\Game;
+use App\Domain\Model\Game\TravelStartAt;
+use App\Domain\Model\Game\TravelStopAt;
 use App\Domain\Query\Character\CountCharactersByGameInterface;
 use App\Domain\Repository\GameRepositoryInterface;
 
@@ -46,6 +48,12 @@ class StartGameHandler implements EventHandlerInterface
         if ($playerCount === Game::NUMBER_OF_PLAYERS_REQUIRED_TO_START) {
             $game = $this->gameRepository->getByIdentifier($event->getGameIdentifier());
             $game->start();
+
+            $travelStart = TravelStartAt::now();
+            $travelStop = TravelStopAt::fromTravelStartAndDuration($travelStart, '15 minutes');
+
+            $game->setTravelStartAt($travelStart);
+            $game->setTravelStopAt($travelStop);
 
             $this->gameRepository->update($game);
         }

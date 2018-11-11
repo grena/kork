@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Player;
 
+use App\Domain\Event\EventPublisherInterface;
+use App\Domain\Event\Game\PlayerJoinedGameEvent;
 use App\Domain\Generator\Character\CharacterGeneratorInterface;
 use App\Domain\Model\Game\Game;
-use App\Domain\Model\Game\GameCreatedAt;
-use App\Domain\Model\Game\GameFinished;
-use App\Domain\Model\Game\GameStarted;
 use App\Domain\Query\Game\FindAllGamesWaitingForPlayerInterface;
 use App\Domain\Repository\CharacterRepositoryInterface;
 use App\Domain\Repository\GameRepositoryInterface;
@@ -30,16 +29,21 @@ class PlayerJoinsRandomGameHandler
     /** @var CharacterRepositoryInterface */
     private $characterRepository;
 
+    /** @var EventPublisherInterface */
+    private $eventPublisher;
+
     public function __construct(
         FindAllGamesWaitingForPlayerInterface $findAllGamesWaitingForPlayer,
         CharacterGeneratorInterface $characterGenerator,
         GameRepositoryInterface $gameRepository,
-        CharacterRepositoryInterface $characterRepository
+        CharacterRepositoryInterface $characterRepository,
+        EventPublisherInterface $eventPublisher
     ) {
         $this->findAllGamesWaitingForPlayer = $findAllGamesWaitingForPlayer;
         $this->characterGenerator = $characterGenerator;
         $this->gameRepository = $gameRepository;
         $this->characterRepository = $characterRepository;
+        $this->eventPublisher = $eventPublisher;
     }
 
     public function __invoke(PlayerJoinsRandomGameCommand $command)
@@ -57,5 +61,10 @@ class PlayerJoinsRandomGameHandler
 
         $character = $this->characterGenerator->forGameAndPlayer($gameIdentifier, $command->playerId);
         $this->characterRepository->add($character);
+
+        $this->eventPublisher->publish(PlayerJoinedGameEvent::create(
+            $command->playerId,
+            $gameIdentifier
+        ));
     }
 }
