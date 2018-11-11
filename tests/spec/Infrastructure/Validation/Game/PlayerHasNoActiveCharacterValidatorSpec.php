@@ -6,14 +6,14 @@ namespace spec\App\Infrastructure\Validation\Game;
 
 use App\Application\Game\CreateGameCommand;
 use App\Domain\Query\Player\PlayerHasActiveCharacterInterface;
-use App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter;
+use App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
+class PlayerHasNoActiveCharacterValidatorSpec extends ObjectBehavior
 {
     function let(
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
@@ -28,13 +28,13 @@ class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
         ExecutionContextInterface $context,
         CreateGameCommand $command,
-        PlayerShouldNotHaveActiveCharacter $constraint,
+        PlayerHasNoActiveCharacter $constraint,
         ConstraintViolationBuilderInterface $violationBuilder
     ) {
         $command->playerId = '12345';
         $hasActiveCharacter->withPlayer('12345')->willReturn(true);
 
-        $context->buildViolation(PlayerShouldNotHaveActiveCharacter::ERROR_MESSAGE)->willReturn($violationBuilder);
+        $context->buildViolation(PlayerHasNoActiveCharacter::ERROR_MESSAGE)->willReturn($violationBuilder);
         $violationBuilder->addViolation()->shouldBeCalled();
 
         $this->validate($command, $constraint);
@@ -44,12 +44,12 @@ class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
         PlayerHasActiveCharacterInterface $hasActiveCharacter,
         ExecutionContextInterface $context,
         CreateGameCommand $command,
-        PlayerShouldNotHaveActiveCharacter $constraint
+        PlayerHasNoActiveCharacter $constraint
     ) {
         $command->playerId = '12345';
         $hasActiveCharacter->withPlayer('12345')->willReturn(false);
 
-        $context->buildViolation(PlayerShouldNotHaveActiveCharacter::ERROR_MESSAGE)->shouldNotBeCalled();
+        $context->buildViolation(PlayerHasNoActiveCharacter::ERROR_MESSAGE)->shouldNotBeCalled();
 
         $this->validate($command, $constraint);
     }
@@ -63,7 +63,7 @@ class PlayerShouldNotHaveActiveCharacterValidatorSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_it_is_not_the_good_command_type(
-        PlayerShouldNotHaveActiveCharacter $constraint
+        PlayerHasNoActiveCharacter $constraint
     ) {
         $command = new \stdClass();
 

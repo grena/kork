@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
+class PlayerHasNoActiveCharacterValidator extends ConstraintValidator
 {
     /** @var PlayerHasActiveCharacterInterface */
     private $hasActiveCharacter;
@@ -57,7 +57,7 @@ class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
      */
     private function checkConstraintType(Constraint $constraint): void
     {
-        if (!$constraint instanceof PlayerShouldNotHaveActiveCharacter) {
+        if (!$constraint instanceof PlayerHasNoActiveCharacter) {
             throw new UnexpectedTypeException($constraint, self::class);
         }
     }
@@ -68,7 +68,7 @@ class PlayerShouldNotHaveActiveCharacterValidator extends ConstraintValidator
 
         if ($hasActiveCharacter) {
             $this->context
-                ->buildViolation(PlayerShouldNotHaveActiveCharacter::ERROR_MESSAGE)
+                ->buildViolation(PlayerHasNoActiveCharacter::ERROR_MESSAGE)
                 ->addViolation();
         }
     }

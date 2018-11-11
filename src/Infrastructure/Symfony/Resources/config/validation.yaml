@@ -1,10 +1,10 @@
 App\Application\Game\CreateGameCommand:
     constraints:
-        - App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter: ~
+        - App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter: ~
 
 App\Application\Player\PlayerJoinsRandomGameCommand:
     constraints:
-        - App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter: ~
+        - App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter: ~
 
 App\Application\Player\PlayerJoinsGameCommand:
     group_sequence:
@@ -14,4 +14,4 @@ App\Application\Player\PlayerJoinsGameCommand:
         - App\Infrastructure\Validation\Game\GameExists: ~
         - App\Infrastructure\Validation\Game\GameIsWaitingForPlayer: { groups: [Advanced] }
         - App\Infrastructure\Validation\Game\GameHasRoomForNewPlayer: { groups: [Advanced] }
-        - App\Infrastructure\Validation\Game\PlayerShouldNotHaveActiveCharacter: ~
+        - App\Infrastructure\Validation\Game\PlayerHasNoActiveCharacter: ~
