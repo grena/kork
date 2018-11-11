@@ -73,4 +73,9 @@ class InMemoryGameRepository implements GameRepositoryInterface
 
         return null;
     }
+
+    public function reset(): void
+    {
+        $this->games = [];
+    }
 }

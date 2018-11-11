@@ -38,4 +38,9 @@ class InMemoryCharacterRepository implements CharacterRepositoryInterface
             return $character->getGameIdentifier()->equals($gameIdentifier);
         });
     }
+
+    public function reset(): void
+    {
+        $this->characters = [];
+    }
 }
