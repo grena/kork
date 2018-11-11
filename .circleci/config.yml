@@ -43,4 +43,5 @@ jobs:
 
       # TESTS
       - run: vendor/bin/phpspec run -c tests/phpspec.yml.dist tests/spec
-      - run: vendor/bin/simple-phpunit
+      - run: bin/phpunit -c phpunit-sql.xml
+      - run: bin/phpunit -c phpunit-in-memory.xml
