@@ -1,0 +1,2 @@
+# Lobby (salle d'attente)
+
