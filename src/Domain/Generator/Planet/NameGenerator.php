@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Generator\Planet;
 
+use App\Domain\Model\Planet\PlanetName;
+
 /**
  * This planet name generator is based on the same algorithm than the one used for the game "Elite"
  * (https://en.wikipedia.org/wiki/Elite_(video_game))
@@ -29,7 +31,7 @@ class NameGenerator
     /** @var int */
     private const PERCENT_SUFFIX = 35;
 
-    public function getName(): string
+    public function getName(): PlanetName
     {
         while(true) {
             $bitIndex = 0;
@@ -78,7 +80,9 @@ class NameGenerator
             $planetName .= sprintf(' %s', current($suffixes));
         }
 
-        return ucwords($planetName);
+        $planetName = ucwords($planetName);
+
+        return PlanetName::fromString($planetName);
     }
 
     private function isValid($previous, $next): bool
