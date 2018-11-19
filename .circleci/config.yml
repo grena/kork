@@ -21,8 +21,8 @@ jobs:
       - checkout
 
       - run: sudo apt-get update
-      - run: sudo apt install -y mysql-client
-      - run: sudo docker-php-ext-install pdo_mysql
+      - run: sudo apt install -y mysql-client libpng-dev
+      - run: sudo docker-php-ext-install pdo_mysql gd
 
       # Download and cache dependencies
       - restore_cache:
