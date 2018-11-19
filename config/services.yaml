@@ -55,3 +55,7 @@ services:
     App\Infrastructure\FileSystem\Provider\Character\PictureProvider:
         arguments:
             - '%kernel.project_dir%/public/img/characters'
+
+    App\Infrastructure\Library\Provider\Planet\PictureProvider:
+        arguments:
+            - '%kernel.project_dir%/public/img/planets'
