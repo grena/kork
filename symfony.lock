@@ -1,4 +1,7 @@
 {
+    "a1essandro/perlin-noise": {
+        "version": "v1.2.0"
+    },
     "clue/stream-filter": {
         "version": "v1.4.0"
     },
@@ -76,6 +79,9 @@
     },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
+    },
+    "grena/odin": {
+        "version": "v0.1"
     },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"

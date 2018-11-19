@@ -3,6 +3,7 @@ services:
   App\Domain\Repository\PlayerRepositoryInterface: '@App\Infrastructure\Persistence\InMemory\Player\InMemoryPlayerRepository'
   App\Domain\Repository\GameRepositoryInterface: '@App\Infrastructure\Persistence\InMemory\Game\InMemoryGameRepository'
   App\Domain\Repository\CharacterRepositoryInterface: '@App\Infrastructure\Persistence\InMemory\Character\InMemoryCharacterRepository'
+  App\Domain\Repository\PlanetRepositoryInterface: '@App\Infrastructure\Persistence\InMemory\Planet\InMemoryPlanetRepository'
 
   # Queries
   App\Domain\Query\Player\PlayerHasActiveCharacterInterface: '@App\Infrastructure\Persistence\InMemory\Player\InMemoryPlayerHasActiveCharacter'
