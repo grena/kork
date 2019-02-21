@@ -6,14 +6,14 @@ namespace App\Infrastructure\Controller\Lobby;
 
 use App\Application\Player\PlayerJoinsRandomGameCommand;
 use App\Application\Player\PlayerJoinsRandomGameHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class JoinRandomGameAction extends Controller
+class JoinRandomGameAction extends AbstractController
 {
     /** @var PlayerJoinsRandomGameHandler */
     private $playerJoinsRandomGameHandler;

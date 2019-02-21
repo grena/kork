@@ -6,14 +6,14 @@ namespace App\Infrastructure\Controller\Lobby;
 
 use App\Application\Player\PlayerJoinsGameCommand;
 use App\Application\Player\PlayerJoinsGameHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class JoinGameAction extends Controller
+class JoinGameAction extends AbstractController
 {
     /** @var PlayerJoinsGameHandler */
     private $playerJoinsGameHandler;

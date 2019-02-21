@@ -8,13 +8,13 @@ use App\Domain\Model\Game\Game;
 use App\Domain\Query\Character\CharacterDetails;
 use App\Domain\Query\Character\FindCharactersDetailsByGameInterface;
 use App\Domain\Repository\GameRepositoryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author Adrien Pétremann <hello@grena.fr>
  */
-class LobbyAction extends Controller
+class LobbyAction extends AbstractController
 {
     /** @var GameRepositoryInterface */
     private $gameRepository;
